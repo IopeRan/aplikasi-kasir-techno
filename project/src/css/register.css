@@ -1,0 +1,126 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+/* ----------- */
+*,
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.fContainer {
+    background-color: #D9AFD9;
+    background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    border: 3px solid #fffc43;
+    border-radius: 15px;
+    background-attachment: fixed;
+    background-color: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+    width: 400px;
+    height: 430px;
+}
+
+.box-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.box-form .header-text {
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    margin-top: 15px;
+    color: #fff;
+}
+
+.box-form .header-text hr {
+    margin-top: 10px;
+}
+
+.box-form form .col-input {
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+
+.box-form form .col-input input {
+    border: 0;
+    border-radius: 15px;
+    font-size: 15px;
+    outline: none;
+    width: 350px;
+    height: 35px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.box-form form .col-input input:focus {
+    background-color: #e6e6e6;
+}
+
+.box-form form .reg-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    margin-right: 30px;
+}
+
+.box-form form .reg-button button {
+    font-family: 'Lato', sans-serif;
+    background-image: linear-gradient( 117deg,  rgba(123,216,96,1) 39.2%, rgba(255,255,255,1) 156.2% );
+    color: #fff;
+    font-size: 20px;
+    border: 0;
+    border-radius: 15px;
+    width: 100px;
+    height: 35px;
+}
+
+.box-form form .reg-button button:hover {
+    cursor: pointer;
+    background-image: linear-gradient( 117deg,  rgb(96, 168, 76) 39.2%, rgb(202, 202, 202) 156.2% );
+}
+
+.row-hr {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin-top: 15px;
+    gap: 8px;
+}
+
+.row-hr hr {
+    width: 100%;
+}
+
+.create {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: #fff;
+    margin-top: 10px;
+    gap: 5px;
+}
+
+.create a {
+    text-decoration: none;
+    color: rgb(164, 164, 255);
+}
