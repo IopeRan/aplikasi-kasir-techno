@@ -8,7 +8,13 @@ if (!isset($_SESSION["login"])) {
 
 require '../functions/functions.php';
 
-$getTransaksi = query("SELECT * FROM transaksi");
+$dataPerPage = 10;
+$countData = count(query("SELECT * FROM transaksi"));
+$countPage = ceil($countData / $dataPerPage);
+$page = (isset($_GET["page"])) ? $_GET["page"] : 1;
+$earlyData = ($dataPerPage * $page) - $dataPerPage;
+
+$getTransaksi = query("SELECT * FROM transaksi LIMIT $earlyData, $dataPerPage");
 
 // tombol cari di klik
 if(isset($_POST["cari"])) {
@@ -31,24 +37,15 @@ if(isset($_POST["cari"])) {
         <link href="../src/css/sidenav.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
-            /* @media (max-width: 498px) {
-                .table {
-                    display: flex;
-                    flex-direction: column;
-                    /* width: 300px;
-                    height: 300px; */
-                    /* margin-right: 10px; */
-                /* }
-
-                .none {
+            @media (max-width: 600px) {
+                .hidden {
                     display: none;
                 }
 
-                td {
-                    width: 50px;
+                th {
+                    width: max-content;
                 }
-            }  */
-            */
+            }
         </style>
     </head>
     <body style="background-color: #e6e6e6;">
@@ -122,18 +119,18 @@ if(isset($_POST["cari"])) {
                    <table class="table table-dark table-striped mt-2 mx-auto" style="width: 100%;">
                         <thead>
                             <tr class="text-center">
-                                <th colspan="8">Riwayat Pembelian Techno Gallery</th>
+                                <th colspan="8" class="hidden">Riwayat Pembelian Techno Gallery</th>
                             </tr>
                             <tr class="text-center text-warning">
                                 <!-- <th>ID</th> -->
-                                <th scope="col" width="200">ID</th>
+                                <th scope="col" width="400" class="hidden">ID</th>
                                 <th width="400" scope="col">Pembeli</th>
-                                <th scope="col" width="400">Tanggal Transaksi</th>
+                                <th scope="col" width="400" class="hidden">Tanggal Transaksi</th>
                                 <th scope="col" width="400">Produk</th>
-                                <th scope="col" width="200">Total Produk</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col">Pembayaran</th>
-                                <th scope="col">Aksi</th>
+                                <th scope="col" width="200" class="hidden">Total Produk</th>
+                                <th scope="col" class="hidden">Harga</th>
+                                <th scope="col" width="350">Pembayaran</th>
+                                <th scope="col" width="300">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -149,14 +146,14 @@ if(isset($_POST["cari"])) {
                                 $sold += $gt["total"];
                             ?>
                             <tr class="text-center">
-                                <td scope="row"><?= $gt["id"]; ?></td>
+                                <td scope="row" class="hidden"><?= $gt["id"]; ?></td>
                                 <td><?= $gt["pembeli"]; ?></td>
-                                <td><?= $gt["tanggal"]; ?></td>
+                                <td class="hidden"><?= $gt["tanggal"]; ?></td>
                                 <td><?= $gt["produk"]; ?></td>
-                                <td><?= $gt["total"]; ?></td>
-                                <td><?= $gt["hasil"]; ?></td>
+                                <td class="hidden"><?= $gt["total"]; ?></td>
+                                <td class="hidden"><?= $gt["hasil"]; ?></td>
                                 <td><?= $gt["bayar"]; ?></td>
-                                <td><a href="deleterev.php?id=<?= $gt["id"]; ?>" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash" onclick="return confirm('Yakin?')"></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a></td>
+                                <td><a href="deleterev.php?id=<?= $gt["id"]; ?>" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash" onclick="return confirm('Yakin?')"></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a><a href="struk.php?id=<?= $gt["id"]; ?>" style="margin-left: 10px;"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
                             </tr>
                             <?php endforeach; ?>
                             <tr class="text-center">
@@ -171,6 +168,29 @@ if(isset($_POST["cari"])) {
                             </tr>
                         </tbody>
                     </table>
+                          <!-- Navigasi Pagination -->
+        <nav aria-label="Page navigation example d-flex" style="display: flex; justify-content: center;">
+          <ul class="pagination">
+            <li class="page-item">
+              <?php if ($page > 1) : ?>
+                <a class="page-link" href="?page=<?= $page - 1; ?>" aria-label="Previous">&laquo;</a>
+              <?php endif; ?>
+            </li>
+            <?php for ($i = 1; $i <= $countPage; $i++) : ?>
+              <?php if ($i == $page) : ?>
+                <li class="page-item"><a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a></li>
+              <?php else : ?>
+                <li class="page-item"><a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a></li>
+              <?php endif; ?>
+            <?php endfor; ?>
+            <li class="page-item">
+              <?php if ($page < $countPage) : ?>
+                <a class="page-link" href="?page=<?= $page + 1; ?>" aria-label="Next">&raquo;</a>
+              <?php endif; ?>
+            </li>
+          </ul>
+        </nav>
+        <!-- /Navigasi Pagination -->
                 </div>
             </div>
         </div>
