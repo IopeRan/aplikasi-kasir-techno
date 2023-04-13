@@ -9,9 +9,8 @@ if (!isset($_SESSION["login"])) {
 }
 
 // pagination
-
 // configuration pagination
-$dataPerPage = 5;
+$dataPerPage = 10;
 $countData = count(query("SELECT * FROM produk"));
 $countPage = ceil($countData / $dataPerPage);
 $page = (isset($_GET["page"])) ? $_GET["page"] : 1;
@@ -19,6 +18,22 @@ $earlyData = ($dataPerPage * $page) - $dataPerPage;
 // var_dump($page);
 
 $getproduk = query("SELECT * FROM produk LIMIT $earlyData, $dataPerPage");
+
+// menu pencarian
+// tombol findid ditekan
+if (isset($_POST['findid'])) {
+  $getproduk = findid($_POST["searchid"]);
+}
+
+// tombol findname ditekan
+if (isset($_POST['findname'])) {
+  $getproduk = findname($_POST["searchname"]);
+}
+
+// tombol findprice ditekan
+if (isset($_POST['findprice'])) {
+  $getproduk = findsearch($_POST["searchprice"]);
+}
 
 ?>
 <!DOCTYPE html>
@@ -45,13 +60,9 @@ $getproduk = query("SELECT * FROM produk LIMIT $earlyData, $dataPerPage");
       <div class="list-group list-group-flush">
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="dashboard.php"><i class="fa-solid fa-gauge"></i><span style="margin-left: 13px;">Dashboard</span></a>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="revenue.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-sharp fa-solid fa-chart-simple"></i><span style="margin-left: 15px;">Revenue</span></a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="analytics.php"><i class="fa-solid fa-chart-pie"></i><span style="margin-left: 10px">Analytics</span></a>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="product.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-basket-shopping"></i><span style="margin-left: 10px;">Product</span></a>
         <a class="list-group-item list-group-item-action list-group-item-light p-3" href="https://www.google.com/maps/place/Techno+Park/@-3.2959495,114.5899544,21z/data=!4m14!1m7!3m6!1s0x2de4211bbc1be42d:0xd93490f4e3d79a8e!2sSMK+Negeri+2+Banjarmasin!8m2!3d-3.2956862!4d114.5900279!16s%2Fg%2F11g__vfj2!3m5!1s0x2de423a0d2934103:0x4e32c230b154c815!8m2!3d-3.2959072!4d114.5898031!16s%2Fg%2F11h_sm3wgw" target="_blank"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-location-dot"></i><span style="margin-left: 15px;">Location</span></a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="announcs.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-bullhorn"></i><span style="margin-left: 10px;">Announcement</span></a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="user.php"><i class="fa-solid fa-user"></i><span style="margin-left: 10px;">User</span></a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="staff.php"><i class="fa-solid fa-clipboard-user"></i><span style="margin-left: 10px;">Staff</span></a>
-        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="schedulle.php"><i class="fa-solid fa-calendar"></i><span style="margin-left: 10px;">Schedulle</span></a>
+        <a class="list-group-item list-group-item-action list-group-item-light p-3" href="jadwal.php"><i class="fa-solid fa-calendar"></i><span style="margin-left: 10px;">Schedulle</span></a>
       </div>
     </div>
     <!-- Page content wrapper-->
@@ -97,24 +108,46 @@ $getproduk = query("SELECT * FROM produk LIMIT $earlyData, $dataPerPage");
       <!-- /script sidebar -->
       <!-- Page content-->
       <div class="container-fluid">
+        <?php
+        if (!in_array("cashier", $_SESSION['admin_akses'])) {
+          echo "<div class='alert alert-danger mt-5' role='alert'>
+          You dont have the permission to acces this page
+        </div>";
+          exit();
+        }
+        ?>
         <a href="add.php" class="btn btn-primary my-5">Tambah Produk</a>
+        <div class="d-flex flex-column">
+          <form class="d-flex flex-row" action="" method="post">
+            <input class="shadow-lg w-100 my-1" autocomplete="off" style="height: 35px; border: none; outline: none;" type="number" id="searchid" name="searchid" placeholder="cari ID barang">
+            <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findid" id="findid"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
+          <form class="d-flex flex-row" action="" method="post">
+            <input class="shadow-lg w-100 my-1" autocomplete="off" style="height: 35px; border: none; outline: none;" type="text" id="searchname" name="searchname" placeholder="cari Nama barang">
+            <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findname" id="findname"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
+          <form class="d-flex flex-row" action="" method="post">
+            <input class="shadow-lg w-100 my-1" autocomplete="off" style="height: 35px; border: none; outline: none;" type="number" id="searchprice" name="searchprice" placeholder="cari Harga barang">
+            <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findprice" id="findprice"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
+        </div>
         <table class="table my-2">
           <thead class="thead-dark">
             <tr>
-              <th scope="col" class="bg-dark text-light">ID</th>
-              <th scope="col" class="bg-dark text-light">Product</th>
-              <th scope="col" class="bg-dark text-light">Price</th>
-              <th scope="col" class="bg-dark text-light">Action</th>
+              <th scope="col" class="bg-dark text-light text-center">ID</th>
+              <th scope="col" class="bg-dark text-light text-center">Product</th>
+              <th scope="col" class="bg-dark text-light text-center">Price</th>
+              <th scope="col" class="bg-dark text-light text-center">Aksi</th>
             </tr>
           </thead>
           <tbody>
             <?php $i = 1; ?>
             <?php foreach ($getproduk as $gp) : ?>
               <tr>
-                <td class="bg-light"><?= $gp["id"]; ?></td>
-                <td class="bg-light"><?= $gp["produk"]; ?></td>
-                <td class="bg-light"><?= $gp["harga"]; ?></td>
-                <td class="bg-light"><a href="transaksi.php?id=<?= $gp["id"]; ?>"><i class="h2 fa-solid fa-cart-shopping"></i></a></td>
+                <td class="bg-light text-center"><?= $gp["id"]; ?></td>
+                <td class="bg-light text-center"><?= $gp["produk"]; ?></td>
+                <td class="bg-light text-center"><?= $gp["harga"]; ?></td>
+                <td class="bg-light text-center"><a style="margin-right: 15px;" href="transaksi.php?id=<?= $gp["id"]; ?>"><i class="h2 text-success fa-solid fa-cart-shopping"></i></a><a style="margin-right: 15px;" href="edit.php?id=<?= $gp["id"]; ?>"><i class="h2 fa-solid fa-pen-to-square"></i></a></a><a href="delete.php?id=<?= $gp["id"]; ?>" onclick="return confirm('yakin?')"><i class="h2 text-danger fa-sharp fa-solid fa-trash"></i></a></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -123,21 +156,21 @@ $getproduk = query("SELECT * FROM produk LIMIT $earlyData, $dataPerPage");
         <nav aria-label="Page navigation example d-flex" style="display: flex; justify-content: center;">
           <ul class="pagination">
             <li class="page-item">
-            <?php if( $page > 1 ) : ?>
-              <a class="page-link" href="?page=<?= $page - 1; ?>" aria-label="Previous">&laquo;</a>
-            <?php endif; ?>
+              <?php if ($page > 1) : ?>
+                <a class="page-link" href="?page=<?= $page - 1; ?>" aria-label="Previous">&laquo;</a>
+              <?php endif; ?>
             </li>
-            <?php for($i = 1; $i <= $countPage; $i++) : ?>
-            <?php if($i == $page) : ?>
-              <li class="page-item"><a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a></li>
-            <?php else : ?>
-              <li class="page-item"><a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a></li>
-            <?php endif; ?>
+            <?php for ($i = 1; $i <= $countPage; $i++) : ?>
+              <?php if ($i == $page) : ?>
+                <li class="page-item"><a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a></li>
+              <?php else : ?>
+                <li class="page-item"><a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a></li>
+              <?php endif; ?>
             <?php endfor; ?>
             <li class="page-item">
-            <?php if( $page < $countPage ) : ?>
-              <a class="page-link" href="?page=<?= $page + 1; ?>" aria-label="Next">&raquo;</a>
-            <?php endif; ?>
+              <?php if ($page < $countPage) : ?>
+                <a class="page-link" href="?page=<?= $page + 1; ?>" aria-label="Next">&raquo;</a>
+              <?php endif; ?>
             </li>
           </ul>
         </nav>

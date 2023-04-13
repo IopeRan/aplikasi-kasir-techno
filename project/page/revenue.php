@@ -1,28 +1,20 @@
 <?php 
 session_start();
 
-require '../functions/functions.php';
-
 if (!isset($_SESSION["login"])) {
     header("Location: login.php");
     exit;
 }
 
+require '../functions/functions.php';
 
-if(isset($_POST["submit"])) {
-    // cek apakah tombol submit sudah ditekan atau belum
-    if(tambah($_POST) > 0 ) {
-        echo "<script>
-                alert('data berhasil ditambahkan');
-                window.location = 'product.php';
-             </script>";
-    } else {
-        echo "<script>
-                alert('data gagal ditambahkan');
-                window.location = 'product.php';
-             </script>";
-    }
+$getTransaksi = query("SELECT * FROM transaksi");
+
+// tombol cari di klik
+if(isset($_POST["cari"])) {
+    $getTransaksi = cari($_POST["keyword"]);
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -32,12 +24,32 @@ if(isset($_POST["submit"])) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Simple Sidebar - Start Bootstrap Template</title>
+        <title>Revenue</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../src/css/sidenav.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            /* @media (max-width: 498px) {
+                .table {
+                    display: flex;
+                    flex-direction: column;
+                    /* width: 300px;
+                    height: 300px; */
+                    /* margin-right: 10px; */
+                /* }
+
+                .none {
+                    display: none;
+                }
+
+                td {
+                    width: 50px;
+                }
+            }  */
+            */
+        </style>
     </head>
     <body style="background-color: #e6e6e6;">
         <div class="d-flex" id="wrapper">
@@ -49,7 +61,7 @@ if(isset($_POST["submit"])) {
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="revenue.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-sharp fa-solid fa-chart-simple"></i><span style="margin-left: 15px;">Revenue</span></a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="product.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-basket-shopping"></i><span style="margin-left: 10px;">Product</span></a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="https://www.google.com/maps/place/Techno+Park/@-3.2959495,114.5899544,21z/data=!4m14!1m7!3m6!1s0x2de4211bbc1be42d:0xd93490f4e3d79a8e!2sSMK+Negeri+2+Banjarmasin!8m2!3d-3.2956862!4d114.5900279!16s%2Fg%2F11g__vfj2!3m5!1s0x2de423a0d2934103:0x4e32c230b154c815!8m2!3d-3.2959072!4d114.5898031!16s%2Fg%2F11h_sm3wgw" target="_blank"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-location-dot"></i><span style="margin-left: 15px;">Location</span></a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="schedulle.php"><i class="fa-solid fa-calendar"></i><span style="margin-left: 10px;">Schedulle</span></a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="jadwal.php"><i class="fa-solid fa-calendar"></i><span style="margin-left: 10px;">Schedulle</span></a>
                 </div>
             </div>
             <!-- Page content wrapper-->
@@ -95,15 +107,70 @@ if(isset($_POST["submit"])) {
                 <!-- /script sidebar -->
                 <!-- Page content-->
                 <div class="container-fluid">
-                   <div class="bg-light my-5 mx-auto shadow-lg rounded p-3" style="width: 100%; height: max-content;">
-                    <div class="h3">Tambah Produk</div>
-                    <hr>
-                    <form class="d-flex flex-column" action="" method="post">
-                        <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="text" htmlspecialchars required placeholder="Nama Produk" id="produk" name="produk">
-                        <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="number" htmlspecialchars required placeholder="Harga Produk" id="harga" name="harga">
-                        <button type="submit" id="submit" name="submit" class="btn btn-success" style="width: max-content;">Tambah Data</button>
+                    <?php 
+                    if(!in_array("bendahara", $_SESSION['admin_akses'])) {
+                        echo "<div class='alert alert-danger mt-5' role='alert'>
+                        You dont have the permission to acces this page
+                      </div>";
+                        exit();
+                    }
+                    ?>
+                    <form action="" method="post"class="d-flex flex-row">
+                        <input class="w-100 mx-auto mt-4 shadow-lg" style="height: 35px; border: none; border-radius: none; outline: none;" st type="text" name="keyword" autofocus placeholder="Cari Data Transaksi" autocomplete="off">
+                        <button type="submit" name="cari" class="bg-primary" style="border: none; outline: none; width: 40px; height: 35px; margin-top: 24px;"><i class="fa-solid fa-magnifying-glass text-light"></i></button>
                     </form>
-                   </div>
+                   <table class="table table-dark table-striped mt-2 mx-auto" style="width: 100%;">
+                        <thead>
+                            <tr class="text-center">
+                                <th colspan="8">Riwayat Pembelian Techno Gallery</th>
+                            </tr>
+                            <tr class="text-center text-warning">
+                                <!-- <th>ID</th> -->
+                                <th scope="col" width="200">ID</th>
+                                <th width="400" scope="col">Pembeli</th>
+                                <th scope="col" width="400">Tanggal Transaksi</th>
+                                <th scope="col" width="400">Produk</th>
+                                <th scope="col" width="200">Total Produk</th>
+                                <th scope="col">Harga</th>
+                                <th scope="col">Pembayaran</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // $data=$conn->query("SELECT * FROM transaksi");
+                            $no=1;
+                            $total = 0;
+                            $sold = 0;
+                            // while($getTransaksi = $data->fetch_array()) {
+                                foreach($getTransaksi as $gt) :
+
+                                $total += $gt["harga"];
+                                $sold += $gt["total"];
+                            ?>
+                            <tr class="text-center">
+                                <td scope="row"><?= $gt["id"]; ?></td>
+                                <td><?= $gt["pembeli"]; ?></td>
+                                <td><?= $gt["tanggal"]; ?></td>
+                                <td><?= $gt["produk"]; ?></td>
+                                <td><?= $gt["total"]; ?></td>
+                                <td><?= $gt["hasil"]; ?></td>
+                                <td><?= $gt["bayar"]; ?></td>
+                                <td><a href="deleterev.php?id=<?= $gt["id"]; ?>" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash" onclick="return confirm('Yakin?')"></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a></td>
+                            </tr>
+                            <?php endforeach; ?>
+                            <tr class="text-center">
+                                <td width="210">Produk Yang Terjual :</td>
+                                <td><?= $sold; ?>&nbsp;&nbsp;unit</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td width="200">| Total Pendapatan :</td>
+                                <td>Rp.<?= $total; ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

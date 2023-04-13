@@ -32,6 +32,16 @@ $conn = mysqli_connect("localhost", "root", "", "technoarea");
 $getproduk = mysqli_query($conn, "SELECT * FROM produk");
 // -----------------
 
+// ambil data transaksi
+$getTransaksi = mysqli_query($conn, "SELECT * FROM transaksi");
+// --------------------
+
+// koneksi user user
+if(!$conn) {
+    die("failed");
+}
+// ----------
+
 function query($query) {
     global $conn;
     $result = mysqli_query($conn, $query);
@@ -43,42 +53,7 @@ function query($query) {
 }
 
 
-// Login Sistem
-if(isset($_POST['login'])) {
-
-    global $conn;
-
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $getacc = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username' ");
-
-    if(mysqli_num_rows($getacc) === 1 ) {
-        $data = mysqli_fetch_assoc($getacc);
-
-        if(password_verify($password, $data['password'])) {
-            // set session
-            $_SESSION["login"] = true;
-            header("Location: dashboard.php");
-            exit();
-        } else {
-            echo "<script>
-                  alert('Username atau Password salah!!!');  
-                  window.location = 'login.php'; 
-                  </script>";
-        }
-
-    } else {
-        echo "<script>
-              alert('Username atau Password salah!!!');  
-              window.location = 'login.php'; 
-              </script>";
-    }
-
-}
-// ------------
-
-// tambah data
+// tambah data produk
 function tambah($data) {
 
     global $conn;
@@ -91,6 +66,147 @@ function tambah($data) {
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
+}
+
+// transaksi 
+function transaksi($data) {
+
+    global $conn;
+
+    // mengambil data dari tiap elemen dalam form
+    $pembeli = htmlspecialchars($data["pembeli"]);
+    $tanggal = htmlspecialchars($data["tanggal"]);
+    $produk = htmlspecialchars($data["produk"]);
+    $harga = htmlspecialchars($data["harga"]);
+    $total = htmlspecialchars($data["total"]);
+    $hasil = htmlspecialchars($data["hasil"]);
+    $bayar = htmlspecialchars($data["bayar"]);
+    $payback = htmlspecialchars($data["payback"]);
+
+    $query = "INSERT INTO transaksi 
+                       VALUES 
+                       (
+                        '', '$pembeli', '$tanggal', '$produk', '$harga', '$total', '$hasil', '$bayar', '$payback'
+    )
+    ";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+// searching function
+// for searching product id
+function findid($keyword) {
+    $query = "SELECT * FROM produk 
+                        WHERE 
+              id = '$keyword'
+             ";
+    return query($query);
+}
+
+// for searching product name
+function findname($keyword) {
+    $query = "SELECT * FROM produk 
+                        WHERE 
+              produk LIKE '%$keyword%'
+             ";
+    return query($query);
+}
+
+// for searching product price
+function findsearch($keyword) {
+    $query = "SELECT * FROM produk 
+                        WHERE 
+              harga LIKE '%$keyword%'
+             ";
+    return query($query);
+}
+
+// function delete
+function delete($id) {
+    global $conn;
+    mysqli_query($conn, "DELETE FROM produk WHERE id = $id");
+    return mysqli_affected_rows($conn);
+}
+
+
+
+
+function edit($data) {
+    global $conn; 
+ 
+    $id = $data["id"];
+    $produk = htmlspecialchars($data["produk"]);
+    $harga = htmlspecialchars($data["harga"]);
+ 
+    $query = "UPDATE produk SET 
+                  id = '$id',
+                  produk = '$produk',
+                  harga = '$harga'
+             WHERE id = $id
+    ";
+ 
+     mysqli_query($conn, $query);
+ 
+     return mysqli_affected_rows($conn);
+ 
+ }
+
+function revedit($data) {
+    global $conn; 
+ 
+    $id = $data["id"];
+    $pembeli = htmlspecialchars($data["pembeli"]);
+    $tanggal = htmlspecialchars($data["tanggal"]);
+    $produk = htmlspecialchars($data["produk"]);
+    $harga = htmlspecialchars($data["harga"]);
+    $total = htmlspecialchars($data["total"]);
+    $hasil = htmlspecialchars($data["hasil"]);
+    $bayar = htmlspecialchars($data["bayar"]);
+    $payback = htmlspecialchars($data["payback"]);
+ 
+    $query = "UPDATE transaksi SET 
+                  id = '$id',
+                  pembeli = '$pembeli',
+                  tanggal = '$tanggal',
+                  produk = '$produk',
+                  harga = '$harga',
+                  total = '$total',
+                  hasil = '$hasil',
+                  bayar = '$bayar',
+                  payback = '$payback' 
+             WHERE id = $id
+    ";
+ 
+     mysqli_query($conn, $query);
+ 
+     return mysqli_affected_rows($conn);
+ 
+ }
+
+function deleterev($id) {
+    global $conn;
+    mysqli_query($conn, "DELETE FROM transaksi WHERE id = $id");
+    return mysqli_affected_rows($conn);
+  }
+
+  
+
+function cari($keyword) {
+    $query = "SELECT * FROM transaksi 
+                    WHERE
+                -- id = '$keyword',
+                id LIKE '%$keyword%' OR
+                pembeli LIKE '%$keyword%' OR
+                tanggal LIKE '%$keyword%' OR
+                produk LIKE '%$keyword%' OR
+                harga LIKE '%$keyword%' OR
+                total LIKE '%$keyword%' OR
+                hasil LIKE '%$keyword%' OR
+                bayar LIKE '%$keyword%' OR
+                payback LIKE '%$keyword%' 
+             ";
+    return query($query);
 }
 
 ?>
