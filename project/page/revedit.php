@@ -1,5 +1,6 @@
 <?php 
 require '../functions/functions.php';
+require '../page/link.php';
 
 $id = $_GET["id"];
 
@@ -8,16 +9,25 @@ $gt = query("SELECT * FROM transaksi WHERE id = $id")[0];
 if(isset($_POST["edit"])) {
     if(revedit($_POST) > 0 ) {
         echo "<script>
-                alert('Data Berhasil di edit');
-                document.location.href = 'revenue.php';
+                Swal.fire({
+                  title: 'Data Berhasil di edit',
+                  icon: 'success'
+                }).then(() => {
+                  window.location.href = 'revenue.php';
+                });
              </script>";
     } else {
         echo "<script>
-        alert('Data Gagal di edit');
-        document.location.href = 'revenue.php';
-     </script>"; 
+                Swal.fire({
+                  title: 'Data Gagal di edit',
+                  icon: 'error'
+                }).then(() => {
+                  window.location.href = 'revenue.php';
+                });
+             </script>"; 
     }
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -33,7 +43,7 @@ if(isset($_POST["edit"])) {
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../src/css/sidenav.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="icon" href="../assets/tcs.svg">
+        <link rel="icon" href="../assets/TC.png">
     </head>
     <body style="background-color: #e6e6e6;">
         <div class="d-flex" id="wrapper">

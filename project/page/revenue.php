@@ -36,7 +36,7 @@ if(isset($_POST["cari"])) {
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../src/css/sidenav.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="icon" href="../assets/tcs.svg">
+        <link rel="icon" href="../assets/TC.png">
         <style>
             @media (max-width: 600px) {
                 .hidden {
@@ -49,6 +49,7 @@ if(isset($_POST["cari"])) {
             }
         </style>
     </head>
+
     <body style="background-color: #e6e6e6;">
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
@@ -154,7 +155,7 @@ if(isset($_POST["cari"])) {
                                 <td class="hidden"><?= $gt["total"]; ?></td>
                                 <td class="hidden"><?= $gt["hasil"]; ?></td>
                                 <td><?= $gt["bayar"]; ?></td>
-                                <td><a href="deleterev.php?id=<?= $gt["id"]; ?>" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash" onclick="return confirm('Yakin?')"></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a><a href="struk.php?id=<?= $gt["id"]; ?>" style="margin-left: 10px;"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
+                                <td><a onclick="konfirmasiHapus()" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash" ></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a><a href="struk.php?id=<?= $gt["id"]; ?>" style="margin-left: 10px;"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
                             </tr>
                             <?php endforeach; ?>
                             <tr class="text-center">
@@ -195,11 +196,28 @@ if(isset($_POST["cari"])) {
                 </div>
             </div>
         </div>
-        <!-- Bootstrap core JS-->
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script>
-
-        </script>
+        <script src="../sweetalert/sweetalert2.all.min.js"></script>
     </body>
+    <script>
+    function konfirmasiHapus() {
+        return Swal.fire({
+            title: 'Anda yakin ingin menghapus data ini?',
+            text: "Data yang sudah dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus data!',
+            cancelButtonText: 'Tidak',
+            buttonsStyling: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Panggil fungsi delete setelah konfirmasi dijalankan
+                window.location.href = "deleterev.php?id=<?= $gt["id"]; ?>";
+            }
+        });
+    }
+    </script>
 </html>

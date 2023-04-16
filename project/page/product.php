@@ -50,7 +50,7 @@ if (isset($_POST['findprice'])) {
   <!-- Core theme CSS (includes Bootstrap)-->
   <link href="../src/css/sidenav.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="icon" href="../assets/tcs.svg">
+  <link rel="icon" href="../assets/TC.png">
 </head>
 
 <body style="background-color: #e6e6e6;">
@@ -148,7 +148,7 @@ if (isset($_POST['findprice'])) {
                 <td class="bg-light text-center"><?= $gp["id"]; ?></td>
                 <td class="bg-light text-center"><?= $gp["produk"]; ?></td>
                 <td class="bg-light text-center"><?= $gp["harga"]; ?></td>
-                <td class="bg-light text-center"><a style="margin-right: 15px;" href="transaksi.php?id=<?= $gp["id"]; ?>"><i class="h2 text-success fa-solid fa-cart-shopping"></i></a><a style="margin-right: 15px;" href="edit.php?id=<?= $gp["id"]; ?>"><i class="h2 fa-solid fa-pen-to-square"></i></a></a><a href="delete.php?id=<?= $gp["id"]; ?>" onclick="return confirm('yakin?')"><i class="h2 text-danger fa-sharp fa-solid fa-trash"></i></a></td>
+                <td class="bg-light text-center"><a style="margin-right: 15px;" href="transaksi.php?id=<?= $gp["id"]; ?>"><i class="h2 text-success fa-solid fa-cart-shopping"></i></a><a style="margin-right: 15px;" href="edit.php?id=<?= $gp["id"]; ?>"><i class="h2 fa-solid fa-pen-to-square"></i></a></a><a href="delete.php?id=<?= $gp["id"]; ?>" onclick="deleteConfirmation(event)"><i class="h2 text-danger fa-sharp fa-solid fa-trash"></i></a></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -179,12 +179,27 @@ if (isset($_POST['findprice'])) {
       </div>
     </div>
   </div>
-  <!-- Bootstrap core JS-->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Core theme JS-->
   <script>
-
-  </script>
+function deleteConfirmation(event) {
+  event.preventDefault(); // prevent the default action of the button
+  Swal.fire({
+    title: 'Yakin mau hapus?',
+    text: "Data yang sudah dihapus tidak bisa dikembalikan",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Hapus'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // continue with delete action
+      document.location.href = 'delete.php?id=<?= $gp["id"]; ?>';
+    }
+  });
+}
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../sweetalert/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

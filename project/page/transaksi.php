@@ -45,7 +45,7 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../src/css/sidenav.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="icon" href="../assets/tcs.svg">
+    <link rel="icon" href="../assets/TC.png">
     <style>
         input {
             border: 0;
@@ -126,17 +126,17 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
                             ?>
                         <form action="" method="post">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="pembeli" name="pembeli" autocomplete="off" htmlspecialchars required placeholder="Nama Pembeli">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="tanggal" name="tanggal" autocomplete="off" readonly htmlspecialchars required placeholder="Tanggal Transaksi" value="<?= date('l, 8-M-Y'); ?>">
+                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="tanggal" name="tanggal" autocomplete="off" readonly htmlspecialchars required placeholder="Tanggal Transaksi" value="<?= date('l, d-M-Y'); ?>">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="produk" name="produk" autocomplete="off" readonly htmlspecialchars required placeholder="Nama Produk" value="<?= $gp["produk"]; ?>">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="harga" name="harga" autocomplete="off" readonly htmlspecialchars required placeholder="Harga Produk" value="<?= $gp["harga"]; ?>">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="total" name="total" autocomplete="off" htmlspecialchars required placeholder="Total Produk" min="1" max="1000" value="1">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="hasil" name="hasil" autocomplete="off" readonly required htmlspecialchars placeholder="Total Harga">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="bayar" name="bayar" autocomplete="off" htmlspecialchars required placeholder="masukkan nominal">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="payback" name="payback" autocomplete="off" htmlspecialchars readonly required placeholder="kembalian">
-                            <button type="submit" class="btn btn-success my-1 w-100" id="save" name="save">Simpan Transaksi</button>
+                            <button type="button" class="btn btn-primary my-1 w-100" onclick="kali()">Hitung Total</button>
+                            <button type="button" class="btn btn-danger my-1 w-100" onclick="kurang()">Hitung Kembalian</button>
+                            <button class="btn btn-success my-1 w-100" id="save" name="save">Simpan Transaksi</button>
                         </form>
-                            <button class="btn btn-primary my-1 w-100" onclick="kali()">Hitung Total</button>
-                            <button class="btn btn-danger my-1 w-100" onclick="kurang()">Hitung Kembalian</button>
                     </div>
                 </div>
             </div>

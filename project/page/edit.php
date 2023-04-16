@@ -1,6 +1,7 @@
 <?php 
 
 require '../functions/functions.php';
+require 'link.php';
 
 $id = $_GET["id"];
 
@@ -10,16 +11,30 @@ $gpe = query("SELECT * FROM produk WHERE id = $id")[0];
 if(isset($_POST["edit"])) {
     if(edit($_POST) > 0 ) {
         echo "<script>
-                alert('Data Berhasil di edit');
-                document.location.href = 'product.php';
+                swal.fire({
+                    title: 'Data berhasil di edit',
+                    icon: 'success',
+                    timer: 2000,
+                    buttons: false
+                }).then(function(){
+                    document.location.href = 'product.php';
+                });
              </script>";
     } else {
         echo "<script>
-        alert('Data Gagal di edit');
-        document.location.href = 'product.php';
-     </script>"; 
+                swal.fire({
+                    title: 'Data gagal di edit',
+                    text: 'Silakan coba lagi!',
+                    icon: 'error',
+                    timer: 2000,
+                    buttons: false
+                }).then(function(){
+                    document.location.href = 'product.php';
+                });
+             </script>"; 
     }
 }
+
 
 ?>
 <!DOCTYPE html>

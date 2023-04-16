@@ -16,7 +16,7 @@ require '../functions/functions.php';
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <script src="../bootstrap/js/bootstrap.js"></script>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <link rel="icon" href="../assets/tcs.svg">
+    <link rel="icon" href="../assets/TC.png">
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
     </style>
