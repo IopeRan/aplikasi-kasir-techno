@@ -1,12 +1,8 @@
 <?php 
-session_start();
-
 require '../functions/functions.php';
 
-if (!isset($_SESSION["login"])) {
-    header("Location: login.php");
-    exit;
-}
+$getTransaksi = query("SELECT * FROM transaksi ORDER BY id DESC");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +11,7 @@ if (!isset($_SESSION["login"])) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard</title>
+        <title>Bill</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -49,7 +45,7 @@ if (!isset($_SESSION["login"])) {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="developer.php">About Developer</a>
+                                        <a class="dropdown-item" href="#coming-soon">Developer</a>
                                         <a class="dropdown-item bg-danger text-light" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#!">Something else here</a>
@@ -78,24 +74,22 @@ if (!isset($_SESSION["login"])) {
                 <!-- /script sidebar -->
                 <!-- Page content-->
                 <div class="container-fluid">
-                   <div class="container bg-light rounded shadow-lg my-5 mx-auto" style="width: 100%; height: max-content;">
-                    <div class="container p-3">
-                      <div class="container h3 mt-2">Selamat Datang di Techno Cashier | SMKN 2 Banjarmasin</div>
-                      <div class="container text-muted">Techno Cashier siap melayani anda</div>
-                      <hr>
-                      <div class="container h5">Kami sudah menyiapkan beberapa menu yang bisa anda akses</div>
-                      <hr>
-                      <div class="container-sm list-group d-flex flex-column p-3 my-3 mx-auto gap-1">
-                        <a href="product.php" class="btn btn-success">Produk</a>
-                        <a href="revenue.php" class="btn btn-warning">Penghasilan</a>
-                        <a href="https://www.google.com/maps/place/Techno+Park/@-3.2959495,114.5899544,21z/data=!4m14!1m7!3m6!1s0x2de4211bbc1be42d:0xd93490f4e3d79a8e!2sSMK+Negeri+2+Banjarmasin!8m2!3d-3.2956862!4d114.5900279!16s%2Fg%2F11g__vfj2!3m5!1s0x2de423a0d2934103:0x4e32c230b154c815!8m2!3d-3.2959072!4d114.5898031!16s%2Fg%2F11h_sm3wgw" target="_blank" class="btn btn-primary">Tempat</a>
-                        <a href="jadwal.php" class="btn btn-secondary">Jadwal Buka</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="banner-welcome">
-                    
-                  </div>
+                   <table class="table table-stripped table-success mt-5 text-dark text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Pembeli</th>
+                        <th>Tanggal</th>
+                        <th>Struk</th>
+                    </tr>
+                    <?php foreach($getTransaksi as $gt) : ?>
+                    <tr>
+                        <td><?= $gt["id"]; ?></td>
+                        <td><?= $gt["pembeli"];?></td>
+                        <td><?= $gt["tanggal"]; ?></td>
+                        <td><a href="struk.php?id=<?= $gt["id"]; ?>"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
+                    </tr>
+                    <?php endforeach; ?>
+                   </table>
                 </div>
             </div>
         </div>

@@ -76,11 +76,10 @@ if (isset($_POST['findprice'])) {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
               <li class="nav-item active"><a class="nav-link" href="#!"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
-              <li class="nav-item"><a class="nav-link" href="#!"><i class="fa-brands fa-discord"></i><span>Discord</span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#coming-soon">Account</a>
+                  <a class="dropdown-item" href="developer.php">About Developer</a>
                   <a class="dropdown-item bg-danger text-light" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#!">Something else here</a>
@@ -183,7 +182,7 @@ if (isset($_POST['findprice'])) {
 function deleteConfirmation(event) {
   event.preventDefault(); // prevent the default action of the button
   Swal.fire({
-    title: 'Yakin mau hapus?',
+    title: 'Yakin mau hapus data barang nya nih?',
     text: "Data yang sudah dihapus tidak bisa dikembalikan",
     icon: 'warning',
     showCancelButton: true,

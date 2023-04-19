@@ -1,32 +1,10 @@
-<?php
+<?php 
 session_start();
 
-require '../functions/functions.php';
 
-if (!isset($_SESSION["login"])) {
-    header("Location: login.php");
-    exit;
-}
-
-// ambil data produk dengan id lewat url
-$id = $_GET["id"];
-// query data produk berdasarkan id
-$gp = query("SELECT * FROM produk WHERE id = $id")[0];
-// var_dump($gp);
-
-// if (isset($_POST["save"])) {
-//     // cek apakah tombol submit sudah ditekan atau belum
-//     if (transaksi($_POST) > 0) {
-//         echo "<script>
-//                 alert('data berhasil ditambahkan');
-//                 window.location = 'product.php';
-//              </script>";
-//     } else {
-//         echo "<script>
-//                 alert('data gagal ditambahkan');
-//                 window.location = 'product.php';
-//              </script>";
-//     }
+// if( isset($_SESSION["login"])) {
+//     header("Location: dashboard.php");
+//     exit;
 // }
 
 
@@ -39,17 +17,27 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Menu Transaksi</title>
+    <title>Sidenav</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../src/css/sidenav.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="../assets/TC.png">
     <style>
-        input {
-            border: 0;
-            outline: none;
+        .social-item {
+            background-color: #ff9c00;
+            border-radius: 5px;
+            width: 150px;
+            height: 35px;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .social-item {
+                width: 100%;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -64,7 +52,7 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="revenue.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-sharp fa-solid fa-chart-simple"></i><span style="margin-left: 15px;">Revenue</span></a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="product.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-basket-shopping"></i><span style="margin-left: 10px;">Product</span></a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="https://www.google.com/maps/place/Techno+Park/@-3.2959495,114.5899544,21z/data=!4m14!1m7!3m6!1s0x2de4211bbc1be42d:0xd93490f4e3d79a8e!2sSMK+Negeri+2+Banjarmasin!8m2!3d-3.2956862!4d114.5900279!16s%2Fg%2F11g__vfj2!3m5!1s0x2de423a0d2934103:0x4e32c230b154c815!8m2!3d-3.2959072!4d114.5898031!16s%2Fg%2F11h_sm3wgw" target="_blank"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-location-dot"></i><span style="margin-left: 15px;">Location</span></a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="schedulle.php"><i class="fa-solid fa-calendar"></i><span style="margin-left: 10px;">Schedulle</span></a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="jadwal.php"><i class="fa-solid fa-calendar"></i><span style="margin-left: 10px;">Schedulle</span></a>
             </div>
         </div>
         <!-- Page content wrapper-->
@@ -80,7 +68,7 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#coming-soon">Account</a>
+                                    +<a class="dropdown-item" href="developer.php">About Developer</a>
                                     <a class="dropdown-item bg-danger text-light" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#!">Something else here</a>
@@ -109,42 +97,81 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
             <!-- /script sidebar -->
             <!-- Page content-->
             <div class="container-fluid">
-                <div class="bg-light rounded shadow-lg mx-auto my-5 p-3" style="width: 100%; height: max-content;">
-                    <div class="h4">Pembayaran</div>
-                    <hr>
-                    <div class="d-flex flex-column">
-                            <?php
-                            if (isset($_POST["save"])) {
-                                // cek apakah tombol submit sudah ditekan atau belum
-                                if (transaksi($_POST) > 0) {
-                                    echo "<div class='alert alert-success' role='alert'>
-                                            Transaksi Pembayaran Berhasil <a href='billmenu.php'>lihat struk</a>
-                                         </div>";
-                                }
-                            }
-                            ?>
-                        <form action="" method="post">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="pembeli" name="pembeli" autocomplete="off" htmlspecialchars required placeholder="Nama Pembeli">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="tanggal" name="tanggal" autocomplete="off" readonly htmlspecialchars required placeholder="Tanggal Transaksi" value="<?= date('l, d-M-Y'); ?>">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="produk" name="produk" autocomplete="off" readonly htmlspecialchars required placeholder="Nama Produk" value="<?= $gp["produk"]; ?>">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="harga" name="harga" autocomplete="off" readonly htmlspecialchars required placeholder="Harga Produk" value="<?= $gp["harga"]; ?>">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="total" name="total" autocomplete="off" htmlspecialchars required placeholder="Total Produk" min="1" max="1000" value="1">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="hasil" name="hasil" autocomplete="off" readonly required htmlspecialchars placeholder="Total Harga">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="bayar" name="bayar" autocomplete="off" htmlspecialchars required placeholder="masukkan nominal">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="payback" name="payback" autocomplete="off" htmlspecialchars readonly required placeholder="kembalian">
-                            <button type="button" class="btn btn-primary my-1 w-100" onclick="kali()">Hitung Total</button>
-                            <button type="button" class="btn btn-danger my-1 w-100" onclick="kurang()">Hitung Kembalian</button>
-                            <button class="btn btn-success my-1 w-100" id="save" name="save">Simpan Transaksi</button>
-                        </form>
+                <div class="bg-light rounded shadow-lg mx-auto my-3 d-flex flex-column align-items-center text-center p-5" style="width: 100%;">
+                    <div class="display-5">Developed By</div>
+                    <img style="border: 3px solid #00ff5b" class="shadow-lg rounded-circle mx-auto mt-4 animate__animated animate__rotateIn" src="../assets/developer.jpg" alt="developer.jpg" width="200px" height="200px">
+                    <div class="d-flex flex-column text-center">
+                        <div class="h3">Erlang Andriyanputra</div>
+                        <div class="h4">SMKN 2 Banjarmasin</div>
+                        <div class="h5">X PPLG B</div>
+                    </div>
+                    <ul class="d-flex flex-wrap list-unstyled gap-3 mt-3">
+                        <li class="social-item">
+                            <a class="text-decoration-none text-light d-flex justify-content-center mt-1" href="#">
+                                <i class="mt-1 text-light fa-brands fa-instagram"></i>Instagram
+                            </a>
+                        </li>
+                        <li class="social-item" style="background-color: #00ff5b;">
+                            <a class="text-decoration-none text-dark d-flex justify-content-center mt-1" href="#">
+                                <i class="mt-1 text-dark fa-brands fa-whatsapp"></i>WhatsApp
+                            </a>
+                        </li>
+                        <li class="social-item" style="background-color: green;">
+                            <a class="text-decoration-none text-light d-flex justify-content-center mt-1" href="#">
+                                <i class="mt-1 text-light fa-brands fa-line"></i>Line
+                            </a>
+                        </li>
+                        <li class="social-item bg-dark">
+                            <a class="text-decoration-none text-light d-flex justify-content-center mt-1" href="#">
+                                <i class="mt-1 text-light fa-brands fa-github"></i>Github
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="text-muted">Techno Cashier est.2023</div>
+                    <hr style="border: 0.5px solid #222; width: 100%;">
+                    <div class="mt-5 text-center">
+                        <div class="display-5">Created by</div>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-8 col-lg-6 mt-4">
+                                <img src="../assets/mysql.png" alt="mysqli.png" class="img-fluid">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-4"> <!--  -->
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <img src="../assets/html.png" alt="html.png" class="img-fluid">
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <img style="margin-top: -10px;" src="../assets/css.png" alt="css.png" class="img-fluid">
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <img src="../assets/javascript.png" alt="bootstrap.svg" class="img-fluid">
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <img src="../assets/php.png" alt="php.png" class="img-fluid">
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <img src="../assets/fontawesome.png" alt="php.png" class="img-fluid">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-4">
+                            <div class="col-6 col-md-3 col-lg-2">
+                                <img src="../assets/bootstrap.svg" alt="bootstrap.svg" class="img-fluid">
+                            </div>
+                            <div class="col-6 col-md-8 col-lg-6">
+                                <img src="../assets/sweetalert.png" alt="sweetalert.png" class="img-fluid">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Bootstrap core JS -->
+    <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="../src/javascripts/operator.js"></script>
+    <script>
+
+    </script>
 </body>
 
 </html>
