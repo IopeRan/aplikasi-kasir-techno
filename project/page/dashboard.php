@@ -77,7 +77,7 @@ if (!isset($_SESSION["login"])) {
                 </script>
                 <!-- /script sidebar -->
                 <!-- Page content-->
-                <div class="container-fluid">
+                <div class="container">
                    <div class="container bg-light rounded shadow-lg my-5 mx-auto" style="width: 100%; height: max-content;">
                     <div class="container p-3">
                       <div class="container h3 mt-2">Selamat Datang di Techno Cashier | SMKN 2 Banjarmasin</div>
