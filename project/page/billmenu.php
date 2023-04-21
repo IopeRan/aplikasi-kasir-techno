@@ -120,7 +120,7 @@ $getTransaksi = query("SELECT * FROM transaksi ORDER BY id DESC LIMIT $earlyData
                     </ul>
                 </nav>
                 </div>
-            </div>
+            </div> tes commit 
         </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
