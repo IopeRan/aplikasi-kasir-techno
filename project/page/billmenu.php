@@ -1,7 +1,15 @@
 <?php 
 require '../functions/functions.php';
 
-$getTransaksi = query("SELECT * FROM transaksi ORDER BY id DESC");
+$dataPerPage = 10;
+$countData = count(query("SELECT * FROM transaksi"));
+$countPage = ceil($countData / $dataPerPage);
+$page = (isset($_GET["page"])) ? $_GET["page"] : 1;
+$earlyData = ($dataPerPage * $page) - $dataPerPage;
+
+// $getTransaksi = query("SELECT * FROM transaksi LIMIT ");
+
+$getTransaksi = query("SELECT * FROM transaksi ORDER BY id DESC LIMIT $earlyData, $dataPerPage");
 
 ?>
 <!DOCTYPE html>
@@ -90,6 +98,27 @@ $getTransaksi = query("SELECT * FROM transaksi ORDER BY id DESC");
                     </tr>
                     <?php endforeach; ?>
                    </table>
+                   <nav aria-label="Page navigation example d-flex mx-auto" style="display: flex; justify-content: center;">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <?php if ($page > 1) : ?>
+                                <a class="page-link" href="?page=<?= $page - 1; ?>" aria-label="Previous">&laquo;</a>
+                            <?php endif; ?>
+                        </li>
+                        <?php for ($i = 1; $i <= $countPage; $i++) : ?>
+                            <?php if ($i == $page) : ?>
+                                <li class="page-item"><a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a></li>
+                            <?php else : ?>
+                                <li class="page-item"><a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a></li>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                        <li class="page-item">
+                            <?php if ($page < $countPage) : ?>
+                                <a class="page-link" href="?page=<?= $page + 1; ?>" aria-label="Next">&raquo;</a>
+                            <?php endif; ?>
+                        </li>
+                    </ul>
+                </nav>
                 </div>
             </div>
         </div>

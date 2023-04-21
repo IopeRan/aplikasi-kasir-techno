@@ -107,22 +107,22 @@ session_start();
                     </div>
                     <ul class="d-flex flex-wrap list-unstyled gap-3 mt-3">
                         <li class="social-item">
-                            <a class="text-decoration-none text-light d-flex justify-content-center mt-1" href="#">
+                            <a class="text-decoration-none text-light d-flex justify-content-center mt-1" href="https://www.instagram.com/lang_andp/" target="_blank">
                                 <i class="mt-1 text-light fa-brands fa-instagram"></i>Instagram
                             </a>
                         </li>
                         <li class="social-item" style="background-color: #00ff5b;">
-                            <a class="text-decoration-none text-dark d-flex justify-content-center mt-1" href="#">
+                            <a class="text-decoration-none text-dark d-flex justify-content-center mt-1" href="https://wa.me/+6285389172080" target="_blank">
                                 <i class="mt-1 text-dark fa-brands fa-whatsapp"></i>WhatsApp
                             </a>
                         </li>
                         <li class="social-item" style="background-color: green;">
-                            <a class="text-decoration-none text-light d-flex justify-content-center mt-1" href="#">
+                            <a class="text-decoration-none text-light d-flex justify-content-center mt-1" href="https://line.me/ti/p/l3y41CTm8e" target="_blank">
                                 <i class="mt-1 text-light fa-brands fa-line"></i>Line
                             </a>
                         </li>
                         <li class="social-item bg-dark">
-                            <a class="text-decoration-none text-light d-flex justify-content-center mt-1" href="#">
+                            <a class="text-decoration-none text-light d-flex justify-content-center mt-1" href="https://github.com/IopeRan" target="_blank">
                                 <i class="mt-1 text-light fa-brands fa-github"></i>Github
                             </a>
                         </li>
