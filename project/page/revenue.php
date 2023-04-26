@@ -82,7 +82,7 @@ if (isset($_POST["cari"])) {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#coming-soon">Account</a>
+                                    <a class="dropdown-item" href="developer.php">About Developer</a>
                                     <a class="dropdown-item bg-danger text-light" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#!">Something else here</a>

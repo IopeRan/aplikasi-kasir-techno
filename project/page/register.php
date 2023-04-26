@@ -1,7 +1,6 @@
-<?php 
+<!-- <?php 
 
-require '../functions/functions.php';
-
+// require '../functions/functions.php';
 
 ?>
 <!DOCTYPE html>
@@ -27,35 +26,35 @@ require '../functions/functions.php';
         <div class="h3 mt-2 text-center p-2" style="font-family: 'Ubuntu', sans-serif; width: 400px;">Techno Cashier Register</div>
         <hr class="mx-auto" style="width: 90%; margin-top: -10px;">
         <?php 
-        if(isset($_POST['register'])) {
-            $username = stripslashes($_POST['username']);
-            $password = $_POST['password'];
-            $conpass = $_POST['conpass'];
+        // if(isset($_POST['register'])) {
+        //     $username = stripslashes($_POST['username']);
+        //     $password = $_POST['password'];
+        //     $conpass = $_POST['conpass'];
         
-            $users_check = mysqli_query($conn, "SELECT * FROM developer WHERE username = '$username' ");
-            $users_login = mysqli_num_rows($users_check);
+        //     $users_check = mysqli_query($conn, "SELECT * FROM developer WHERE username = '$username' ");
+        //     $users_login = mysqli_num_rows($users_check);
         
-            if($users_login > 0) {
-                echo "<script>
-                      alert('Username tidak tersedia, silahkan gunakan username lain');
-                      window.location = 'register.php';
-                      </script>";
-            } else {
-                if($password != $conpass) {
-                    echo  "<div class='alert alert-danger mx-auto' role='alert' style='width: 373px; height: 55px;'>
-                           Password Salah!
-                           </div>";
-                } else {
-                    $password = password_hash($password, PASSWORD_DEFAULT);
-                    mysqli_query($conn, "INSERT INTO developer VALUES('', '$username', '$password')");
-                    echo "<script>
-                          alert('Akun Berhasil dibuat');
-                          window.location = 'dashboard.php';
-                          </script>";
-                }
-            }
+        //     if($users_login > 0) {
+        //         echo "<script>
+        //               alert('Username tidak tersedia, silahkan gunakan username lain');
+        //               window.location = 'register.php';
+        //               </script>";
+        //     } else {
+        //         if($password != $conpass) {
+        //             echo  "<div class='alert alert-danger mx-auto' role='alert' style='width: 373px; height: 55px;'>
+        //                    Password Salah!
+        //                    </div>";
+        //         } else {
+        //             $password = password_hash($password, PASSWORD_DEFAULT);
+        //             mysqli_query($conn, "INSERT INTO developer VALUES('', '$username', '$password')");
+        //             echo "<script>
+        //                   alert('Akun Berhasil dibuat');
+        //                   window.location = 'dashboard.php';
+        //                   </script>";
+        //         }
+        //     }
         
-        }
+        // }
         ?>
         <form action="" method="post" class="d-flex flex-column gap-4">
             <input class="rounded mx-auto shadow-lg text-center" style="width: 373px; height: 36px; outline: none; border: none;" type="text" autocomplete="off" required htmlspecialchars id="username" name="username" placeholder="Username">
@@ -68,4 +67,6 @@ require '../functions/functions.php';
     </div>
 </body>
 
-</html>
+</html> -->
+Sorry, this page is no longer active <a href="login.php">click here</a>
+<!-- register tidak digunakan karna untuk login diambil melalui akun yang ditambahkan secara manual di database dan juga website ini tidak publik -->
