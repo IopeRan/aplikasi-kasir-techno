@@ -201,7 +201,7 @@ if (isset($_POST["cari"])) {
                     </ul>
                 </nav>
                 <!-- /Navigasi Pagination -->
-                <a href="printpdf.php" class="btn btn-danger">Cetak Tabel(PDF)</a>
+                <a style="margin-bottom: 20px" href="printpdf.php" class="btn btn-danger">Cetak Tabel(PDF)</a>
             </div>
         </div>
     </div>

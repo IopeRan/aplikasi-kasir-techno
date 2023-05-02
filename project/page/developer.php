@@ -39,6 +39,13 @@ if (!isset($_SESSION["login"])) {
                 margin-bottom: 10px;
             }
         }
+
+        #badge {
+            margin-top: 20px;
+            border-radius: 7px;
+            width: 250px;
+            height: 80px;
+        }
     </style>
 </head>
 
@@ -131,34 +138,36 @@ if (!isset($_SESSION["login"])) {
                     <hr style="border: 0.5px solid #222; width: 100%;">
                     <div class="mt-5 text-center">
                         <div class="display-5">Created by</div>
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-md-8 col-lg-6 mt-4">
-                                <img src="../assets/mysql.png" alt="mysqli.png" class="img-fluid">
+                        <div class="row">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                                <img id="badge" src="../assets/badge/html.svg" alt="badges" class="img-fluid">
                             </div>
-                        </div>
-                        <div class="row justify-content-center mt-4"> <!--  -->
-                            <div class="col-6 col-md-3 col-lg-2">
-                                <img src="../assets/html.png" alt="html.png" class="img-fluid">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                                <img id="badge" src="../assets/badge/css.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-3 col-lg-2">
-                                <img style="margin-top: -10px;" src="../assets/css.png" alt="css.png" class="img-fluid">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                                <img id="badge" src="../assets/badge/javascript.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-3 col-lg-2">
-                                <img src="../assets/javascript.png" alt="bootstrap.svg" class="img-fluid">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                                <img id="badge" src="../assets/badge/php.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-3 col-lg-2">
-                                <img src="../assets/php.png" alt="php.png" class="img-fluid">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                                <img id="badge" src="../assets/badge/bootstrap.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-3 col-lg-2">
-                                <img src="../assets/fontawesome.png" alt="php.png" class="img-fluid">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                                <img id="badge" src="../assets/badge/mysql.svg" alt="badges" class="img-fluid">
                             </div>
-                        </div>
-                        <div class="row justify-content-center mt-4">
-                            <div class="col-6 col-md-3 col-lg-2">
-                                <img src="../assets/bootstrap.svg" alt="bootstrap.svg" class="img-fluid">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                                <img id="badge" src="../assets/badge/apache.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-8 col-lg-6">
-                                <img src="../assets/sweetalert.png" alt="sweetalert.png" class="img-fluid">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                                <img id="badge" src="../assets/badge/vsc.svg" alt="badges" class="img-fluid">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                <div class="bg-primary text-light d-flex align-items-center justify-content-center rounded-lg" style="width: 250px; height: 80px; border-radius: 7px;"><i class="fa-solid fa-font-awesome me-3"></i>Font Awesome</div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                <div class="bg-warning text-light d-flex align-items-center justify-content-center rounded-lg" style="width: 250px; height: 80px; border-radius: 7px;"><img src="../assets/badge/sweetalert.png" width="60px" class="me-3">Sweetalert</div>
                             </div>
                         </div>
                     </div>
