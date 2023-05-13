@@ -8,8 +8,8 @@ function kali() {
 }
 
 function kurang() {
-    let bil3 = document.getElementById("hasil").value;
-    let bil4 = document.getElementById("bayar").value;
+    let bil3 = document.getElementById("bayar").value;
+    let bil4 = document.getElementById("hasil").value;
     let hasil2 = parseInt(bil3) - parseInt(bil4);
         document.getElementById("payback").value = hasil2;
 }

@@ -49,7 +49,6 @@ if(isset($_POST["submit"])) {
         <meta name="author" content="" />
         <title>Tambah Data</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../src/css/sidenav.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -115,8 +114,10 @@ if(isset($_POST["submit"])) {
                     <div class="h3">Tambah Produk</div>
                     <hr>
                     <form class="d-flex flex-column" action="" method="post">
+                        <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="text" htmlspecialchars required placeholder="Kode Produk" id="kode" name="kode">
                         <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="text" htmlspecialchars required placeholder="Nama Produk" id="produk" name="produk">
                         <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="number" htmlspecialchars required placeholder="Harga Produk" id="harga" name="harga">
+                        <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="date" htmlspecialchars required placeholder="Tanggal Masuk" id="tanggal_masuk" name="tanggal_masuk">
                         <button type="submit" id="submit" name="submit" class="btn btn-success" style="width: max-content;">Tambah Data</button>
                     </form>
                    </div>

@@ -125,7 +125,7 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
                             ?>
                         <form action="" method="post">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="pembeli" name="pembeli" autocomplete="off" htmlspecialchars required placeholder="Nama Pembeli">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="tanggal" name="tanggal" autocomplete="off" readonly htmlspecialchars required placeholder="Tanggal Transaksi" value="<?= date('l, d-M-Y'); ?>">
+                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="date" id="tanggal" name="tanggal" autocomplete="off" htmlspecialchars required placeholder="Tanggal Transaksi">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="produk" name="produk" autocomplete="off" readonly htmlspecialchars required placeholder="Nama Produk" value="<?= $gp["produk"]; ?>">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="harga" name="harga" autocomplete="off" readonly htmlspecialchars required placeholder="Harga Produk" value="<?= $gp["harga"]; ?>">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="total" name="total" autocomplete="off" htmlspecialchars required placeholder="Total Produk" min="1" max="1000" value="1">

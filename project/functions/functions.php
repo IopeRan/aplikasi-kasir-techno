@@ -59,10 +59,12 @@ function tambah($data) {
     global $conn;
 
     // mengambil data dari tiap elemen dalam form
+    $kode = $data["kode"];
     $produk = $data["produk"];
     $harga = $data["harga"];
+    $tanggal = $data["tanggal_masuk"];
 
-    $query = "INSERT INTO produk VALUES ('', '$produk', '$harga')";
+    $query = "INSERT INTO produk VALUES ('', '$kode', '$produk', '$harga', '$tanggal')";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);

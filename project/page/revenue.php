@@ -123,6 +123,26 @@ if (isset($_POST["cari"])) {
                     <input class="w-100 mx-auto mt-4 shadow-lg" style="height: 35px; border: none; border-radius: none; outline: none;" st type="text" name="keyword" autofocus placeholder="Cari Data Transaksi" autocomplete="off">
                     <button type="submit" name="cari" class="bg-primary" style="border: none; outline: none; width: 40px; height: 35px; margin-top: 24px;"><i class="fa-solid fa-magnifying-glass text-light"></i></button>
                 </form>
+                <div class="py-2"></div>
+                <div class="card p-3 shadow-lg fw-bold">
+                    <div>
+                        Filter Tanggal Riwayat Pembelian Techno Gallery
+                    </div>
+                    <form action="" method="post" class="text-center">
+                        <table class="table">
+                            <tr class="bg-dark text-white">
+                                <th>Dari Tanggal</th>
+                                <th>Sampai Tanggal</th>
+                                <th>Aksi</th>
+                            </tr>
+                            <tr>
+                                <td><input type="date" id="dari_tanggal" name="dari_tanggal" required></td>
+                                <td><input type="date" id="sampai_tanggal" name="sampai_tanggal" required></td>
+                                <td><input type="submit" id="filter" name="filter" class="btn btn-primary" value="Filter"></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-dark table-striped mt-2 mx-auto" style="width: 100%;">
                         <thead>
@@ -147,8 +167,16 @@ if (isset($_POST["cari"])) {
                             $no = 1;
                             $total = 0;
                             $sold = 0;
+                            // filter
+                            if(isset($_POST["filter"])) {
+                                $dari_tanggal = mysqli_real_escape_string($conn, $_POST["dari_tanggal"]);
+                                $sampai_tanggal = mysqli_real_escape_string($conn, $_POST["sampai_tanggal"]);
+                                $data_barang = mysqli_query($conn, "SELECT * FROM transaksi WHERE tanggal BETWEEN '$dari_tanggal' AND '$sampai_tanggal'");
+                            } else {
+                                $data_barang = mysqli_query($conn, "SELECT * FROM transaksi WHERE tanggal");
+                            }
                             // while($getTransaksi = $data->fetch_array()) {
-                            foreach ($getTransaksi as $gt) :
+                            while ($gt = mysqli_fetch_array($data_barang)) :
 
                                 $total += $gt["harga"];
                                 $sold += $gt["total"];
@@ -163,7 +191,7 @@ if (isset($_POST["cari"])) {
                                     <td><?= $gt["bayar"]; ?></td>
                                     <td class="column-items"><a onclick="konfirmasiHapus()" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash"></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a><a href="struk.php?id=<?= $gt["id"]; ?>" style="margin-left: 10px;"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endwhile; ?>
                             <tr class="text-center">
                                 <td width="210">Produk Yang Terjual :</td>
                                 <td><?= $sold; ?>&nbsp;&nbsp;unit</td>

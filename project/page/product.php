@@ -135,6 +135,8 @@ if (isset($_POST['findprice'])) {
           <thead class="thead-dark">
             <tr>
               <th scope="col" class="bg-dark text-light text-center">ID</th>
+              <th scope="col" class="bg-dark text-light text-center">Kode Barang</th>
+              <th scope="col" class="bg-dark text-light text-center">Tanggal Masuk</th>
               <th scope="col" class="bg-dark text-light text-center">Product</th>
               <th scope="col" class="bg-dark text-light text-center">Price</th>
               <th scope="col" class="bg-dark text-light text-center">Aksi</th>
@@ -145,6 +147,8 @@ if (isset($_POST['findprice'])) {
             <?php foreach ($getproduk as $gp) : ?>
               <tr>
                 <td class="bg-light text-center"><?= $gp["id"]; ?></td>
+                <td class="bg-light text-center"><?= $gp["kode"]; ?></td>
+                <td class="bg-light text-center"><?= $gp["tanggal_masuk"]; ?></td>
                 <td class="bg-light text-center"><?= $gp["produk"]; ?></td>
                 <td class="bg-light text-center"><?= $gp["harga"]; ?></td>
                 <td class="bg-light text-center"><a style="margin-right: 15px;" href="transaksi.php?id=<?= $gp["id"]; ?>"><i class="h2 text-success fa-solid fa-cart-shopping"></i></a><a style="margin-right: 15px;" href="edit.php?id=<?= $gp["id"]; ?>"><i class="h2 fa-solid fa-pen-to-square"></i></a></a><a href="delete.php?id=<?= $gp["id"]; ?>" onclick="deleteConfirmation(event)"><i class="h2 text-danger fa-sharp fa-solid fa-trash"></i></a></td>
