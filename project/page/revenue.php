@@ -119,12 +119,12 @@ if (isset($_POST["cari"])) {
                     exit();
                 }
                 ?>
-                <form action="" method="post" class="d-flex flex-row">
-                    <input class="w-100 mx-auto mt-4 shadow-lg" style="height: 35px; border: none; border-radius: none; outline: none;" st type="text" name="keyword" autofocus placeholder="Cari Data Transaksi" autocomplete="off">
-                    <button type="submit" name="cari" class="bg-primary" style="border: none; outline: none; width: 40px; height: 35px; margin-top: 24px;"><i class="fa-solid fa-magnifying-glass text-light"></i></button>
-                </form>
                 <div class="py-2"></div>
                 <div class="card p-3 shadow-lg fw-bold">
+                <form action="" method="post" class="d-flex flex-row mb-2">
+                    <input class="w-100 mx-auto mt-4 shadow-lg border" style="height: 35px; outline: none;" st type="text" name="keyword" autofocus placeholder="Cari Data Transaksi" autocomplete="off">
+                    <button type="button" name="cari" class="bg-primary shadow-lg" style="border: none; outline: none; width: 40px; height: 35px; margin-top: 24px;"><i class="fa-solid fa-magnifying-glass text-light"></i></button>
+                </form>
                     <div>
                         Filter Tanggal Riwayat Pembelian Techno Gallery
                     </div>
@@ -136,15 +136,21 @@ if (isset($_POST["cari"])) {
                                 <th>Aksi</th>
                             </tr>
                             <tr>
-                                <td><input type="date" id="dari_tanggal" name="dari_tanggal" required></td>
-                                <td><input type="date" id="sampai_tanggal" name="sampai_tanggal" required></td>
-                                <td><input type="submit" id="filter" name="filter" class="btn btn-primary" value="Filter"></td>
+                                <td class="col-md-4 col-sm-12 mb-2">
+                                    <input type="date" id="dari_tanggal" name="dari_tanggal" required class="form-control py-1 shadow-lg">
+                                </td>
+                                <td class="col-md-4 col-sm-12 mb-2">
+                                    <input type="date" id="sampai_tanggal" name="sampai_tanggal" required class="form-control py-1 shadow-lg">
+                                </td>
+                                <td class="col-md-4 col-sm-12">
+                                    <input type="submit" id="filter" name="filter" class="btn btn-primary w-100 shadow-lg" value="Filter">
+                                </td>
                             </tr>
                         </table>
                     </form>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-dark table-striped mt-2 mx-auto" style="width: 100%;">
+                    <div class="fw-bold">DATA RIWAYAT TRANSAKSI TECHNO GALLERY</div>
+                    <div class="table-responsive">
+                    <table id="table" class="table table-dark table-striped mt-2 mx-auto fw-normal shadow-sm" style="width: 100%;">
                         <thead>
                             <tr class="text-center">
                                 <th colspan="8">Riwayat Pembelian Techno Gallery</th>
@@ -189,7 +195,7 @@ if (isset($_POST["cari"])) {
                                     <td><?= $gt["total"]; ?></td>
                                     <td><?= $gt["hasil"]; ?></td>
                                     <td><?= $gt["bayar"]; ?></td>
-                                    <td class="column-items"><a onclick="konfirmasiHapus()" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash"></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a><a href="struk.php?id=<?= $gt["id"]; ?>" style="margin-left: 10px;"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
+                                    <td class="column-items"><a href="deleterev.php?id=<?= $gt["id"]; ?>" class="delete-link" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash"></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a><a href="struk.php?id=<?= $gt["id"]; ?>" style="margin-left: 10px;"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
                                 </tr>
                             <?php endwhile; ?>
                             <tr class="text-center">
@@ -229,7 +235,15 @@ if (isset($_POST["cari"])) {
                     </ul>
                 </nav>
                 <!-- /Navigasi Pagination -->
-                <a style="margin-bottom: 20px" href="printpdf.php" class="btn btn-danger">Cetak Tabel(PDF)</a>
+                <a href="printpdf.php?dari=<?= $dari_tanggal; ?>&&sampai=<?= $sampai_tanggal; ?>" style="width: 150px;" class="btn btn-danger shadow-lg">Cetak Tabel(PDF)</a>
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    function printPDF() {
+                    // Kode untuk membuat PDF menggunakan jsPDF
+                    }
+                });
+                </script>
+                </div>
             </div>
         </div>
     </div>
@@ -238,24 +252,27 @@ if (isset($_POST["cari"])) {
     <script src="../sweetalert/sweetalert2.all.min.js"></script>
 </body>
 <script>
-    function konfirmasiHapus() {
-        return Swal.fire({
-            title: 'Anda yakin ingin menghapus data ini?',
-            text: "Data yang sudah dihapus tidak dapat dikembalikan!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus data!',
-            cancelButtonText: 'Tidak',
-            buttonsStyling: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Panggil fungsi delete setelah konfirmasi dijalankan
-                window.location.href = "deleterev.php?id=<?= $gt["id"]; ?>";
-            }
-        });
-    }
+  const deleteLinks = document.querySelectorAll('.delete-link');
+
+  deleteLinks.forEach(deleteLink => {
+    deleteLink.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      Swal.fire({
+        title: 'Yakin Mau Hapus Data Produk?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = deleteLink.getAttribute('href');
+        }
+      })
+    });
+  });
 </script>
 
 </html>

@@ -64,7 +64,7 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="revenue.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-sharp fa-solid fa-chart-simple"></i><span style="margin-left: 15px;">Revenue</span></a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="product.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-basket-shopping"></i><span style="margin-left: 10px;">Product</span></a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="https://www.google.com/maps/place/Techno+Park/@-3.2959495,114.5899544,21z/data=!4m14!1m7!3m6!1s0x2de4211bbc1be42d:0xd93490f4e3d79a8e!2sSMK+Negeri+2+Banjarmasin!8m2!3d-3.2956862!4d114.5900279!16s%2Fg%2F11g__vfj2!3m5!1s0x2de423a0d2934103:0x4e32c230b154c815!8m2!3d-3.2959072!4d114.5898031!16s%2Fg%2F11h_sm3wgw" target="_blank"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-location-dot"></i><span style="margin-left: 15px;">Location</span></a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="schedulle.php"><i class="fa-solid fa-calendar"></i><span style="margin-left: 10px;">Schedulle</span></a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="jadwal.php"><i class="fa-solid fa-calendar"></i><span style="margin-left: 10px;">Schedulle</span></a>
             </div>
         </div>
         <!-- Page content wrapper-->
@@ -124,6 +124,7 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
                             }
                             ?>
                         <form action="" method="post">
+                            <img src="../assets/img/<?= $gp["gambar"]; ?>" alt="product" width="300" height="280">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="pembeli" name="pembeli" autocomplete="off" htmlspecialchars required placeholder="Nama Pembeli">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="date" id="tanggal" name="tanggal" autocomplete="off" htmlspecialchars required placeholder="Tanggal Transaksi">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="produk" name="produk" autocomplete="off" readonly htmlspecialchars required placeholder="Nama Produk" value="<?= $gp["produk"]; ?>">

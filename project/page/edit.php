@@ -110,10 +110,18 @@ if(isset($_POST["edit"])) {
                    <div class="bg-light mx-auto my-3 shadow-lg rounded p-3" style="width: 100%; height: max-content;">
                     <div class="h3">Edit Data Produk</div>
                     <hr>
-                    <form class="d-flex flex-column " action="" method="post">
+                    <form class="d-flex flex-column " action="" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id" value="<?= $gpe["id"]; ?>">
+                        <input type="hidden" name="gambarLama" id="gambarLama" value="<?= $gpe["gambar"]; ?>">
+                        <input class="my-3 rounded shadow-lg" type="text" name="kode" id="kode" placeholder="Kode Produk" required htmlspecialchars style="border: none; outline: none;" value="<?= $gpe["kode"]; ?>">
                         <input class="my-3 rounded shadow-lg" type="text" name="produk" id="produk" placeholder="Nama Produk" required htmlspecialchars style="border: none; outline: none;" value="<?= $gpe["produk"]; ?>">
                         <input class="my-3 rounded shadow-lg" type="number" name="harga" id="harga" placeholder="Harga Produk" required htmlspecialchars style="border: none; outline: none;" value="<?= $gpe["harga"]; ?>">
+                        <input class="my-3 rounded shadow-lg" type="date" name="tanggal_masuk" id="tanggal_masuk" placeholder="Harga Produk" required htmlspecialchars style="border: none; outline: none;" value="<?= $gpe["tanggal_masuk"]; ?>">
+                        <div class="mb-3">
+                        <label for="gambar" class="form-label">Gambar Lama :</label>
+                        <img src="../assets/img/<?= $gpe["gambar"]; ?>" alt="product" width="100" class="mb-3">
+                        <input class="form-control" type="file" id="gambar" name="gambar">
+                        </div>
                         <button class="btn btn-primary my-3" id="edit" name="edit">Edit Data</button>
                     </form>
                    </div>

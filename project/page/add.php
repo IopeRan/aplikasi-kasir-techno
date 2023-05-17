@@ -11,6 +11,7 @@ if (!isset($_SESSION["login"])) {
 
 
 if(isset($_POST["submit"])) {
+
     // cek apakah tombol submit sudah ditekan atau belum
     if(tambah($_POST) > 0 ) {
         echo "<script>
@@ -113,11 +114,15 @@ if(isset($_POST["submit"])) {
                    <div class="bg-light my-5 mx-auto shadow-lg rounded p-3" style="width: 100%; height: max-content;">
                     <div class="h3">Tambah Produk</div>
                     <hr>
-                    <form class="d-flex flex-column" action="" method="post">
+                    <form class="d-flex flex-column" action="" method="post" enctype="multipart/form-data">
                         <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="text" htmlspecialchars required placeholder="Kode Produk" id="kode" name="kode">
                         <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="text" htmlspecialchars required placeholder="Nama Produk" id="produk" name="produk">
                         <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="number" htmlspecialchars required placeholder="Harga Produk" id="harga" name="harga">
                         <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="date" htmlspecialchars required placeholder="Tanggal Masuk" id="tanggal_masuk" name="tanggal_masuk">
+                        <div class="mb-3">
+                        <label for="gambar" class="form-label">Upload Gambar Produk</label>
+                        <input class="form-control" type="file" id="gambar" name="gambar">
+                        </div>
                         <button type="submit" id="submit" name="submit" class="btn btn-success" style="width: max-content;">Tambah Data</button>
                     </form>
                    </div>

@@ -116,27 +116,30 @@ if (isset($_POST['findprice'])) {
           exit();
         }
         ?>
-        <a href="add.php" class="btn btn-primary my-5">Tambah Produk</a>
+        <div class="table-responsive card container p-4 my-5 shadow-lg">
         <div class="d-flex flex-column">
+        <a href="add.php" class="btn btn-primary my-2 px-1 py-2" style="width: 150px;">Tambah Produk</a>
           <form class="d-flex flex-row" action="" method="post">
-            <input class="shadow-lg w-100 my-1" autocomplete="off" style="height: 35px; border: none; outline: none;" type="number" id="searchid" name="searchid" placeholder="cari ID barang">
+            <input class="shadow-lg border w-100 my-1 max-width" autocomplete="off" style="height: 35px; border: none; outline: none;" type="number" id="searchid" name="searchid" placeholder="cari ID barang">
             <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findid" id="findid"><i class="fa-solid fa-magnifying-glass"></i></button>
           </form>
           <form class="d-flex flex-row" action="" method="post">
-            <input class="shadow-lg w-100 my-1" autocomplete="off" style="height: 35px; border: none; outline: none;" type="text" id="searchname" name="searchname" placeholder="cari Nama barang">
+            <input class="shadow-lg border w-100 my-1 max-width" autocomplete="off" style="height: 35px; border: none; outline: none;" type="text" id="searchname" name="searchname" placeholder="cari Nama barang">
             <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findname" id="findname"><i class="fa-solid fa-magnifying-glass"></i></button>
           </form>
           <form class="d-flex flex-row" action="" method="post">
-            <input class="shadow-lg w-100 my-1" autocomplete="off" style="height: 35px; border: none; outline: none;" type="number" id="searchprice" name="searchprice" placeholder="cari Harga barang">
+            <input class="shadow-lg border w-100 my-1 max-width" autocomplete="off" style="height: 35px; border: none; outline: none;" type="number" id="searchprice" name="searchprice" placeholder="cari Harga barang">
             <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findprice" id="findprice"><i class="fa-solid fa-magnifying-glass"></i></button>
           </form>
         </div>
-        <table class="table my-2">
+        <div class="fw-bold">PRODUK TECHNO GALLERY</div>
+        <table class="table table-responsive my-2 shadow-lg">
           <thead class="thead-dark">
             <tr>
               <th scope="col" class="bg-dark text-light text-center">ID</th>
               <th scope="col" class="bg-dark text-light text-center">Kode Barang</th>
               <th scope="col" class="bg-dark text-light text-center">Tanggal Masuk</th>
+              <th scope="col" class="bg-dark text-light text-center">Gambar Produk</th>
               <th scope="col" class="bg-dark text-light text-center">Product</th>
               <th scope="col" class="bg-dark text-light text-center">Price</th>
               <th scope="col" class="bg-dark text-light text-center">Aksi</th>
@@ -149,13 +152,15 @@ if (isset($_POST['findprice'])) {
                 <td class="bg-light text-center"><?= $gp["id"]; ?></td>
                 <td class="bg-light text-center"><?= $gp["kode"]; ?></td>
                 <td class="bg-light text-center"><?= $gp["tanggal_masuk"]; ?></td>
+                <td class="bg-light text-center"><img src="../assets/img/<?= $gp["gambar"]; ?>" alt="product" width="80px"></td>
                 <td class="bg-light text-center"><?= $gp["produk"]; ?></td>
                 <td class="bg-light text-center"><?= $gp["harga"]; ?></td>
-                <td class="bg-light text-center"><a style="margin-right: 15px;" href="transaksi.php?id=<?= $gp["id"]; ?>"><i class="h2 text-success fa-solid fa-cart-shopping"></i></a><a style="margin-right: 15px;" href="edit.php?id=<?= $gp["id"]; ?>"><i class="h2 fa-solid fa-pen-to-square"></i></a></a><a href="delete.php?id=<?= $gp["id"]; ?>" onclick="deleteConfirmation(event)"><i class="h2 text-danger fa-sharp fa-solid fa-trash"></i></a></td>
+                <td class="bg-light text-center"><a style="margin-right: 15px;" href="transaksi.php?id=<?= $gp["id"]; ?>"><i class="h2 text-success fa-solid fa-cart-shopping"></i></a><a style="margin-right: 15px;" href="edit.php?id=<?= $gp["id"]; ?>"><i class="h2 fa-solid fa-pen-to-square"></i></a></a><a href="delete.php?id=<?= $gp['id']; ?>" class="delete-link"><i class="h2 text-danger fa-sharp fa-solid fa-trash"></i></a></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
         </table>
+        </div>
         <!-- Navigasi Pagination -->
         <nav aria-label="Page navigation example d-flex" style="display: flex; justify-content: center;">
           <ul class="pagination">
@@ -165,7 +170,7 @@ if (isset($_POST['findprice'])) {
               <?php endif; ?>
             </li>
             <?php for ($i = 1; $i <= $countPage; $i++) : ?>
-              <?php if ($i == $page) : ?>
+              <?php if ($i == $page) : ?> 
                 <li class="page-item"><a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a></li>
               <?php else : ?>
                 <li class="page-item"><a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a></li>
@@ -183,23 +188,27 @@ if (isset($_POST['findprice'])) {
     </div>
   </div>
   <script>
-function deleteConfirmation(event) {
-  event.preventDefault(); // prevent the default action of the button
-  Swal.fire({
-    title: 'Yakin mau hapus data barang nya nih?',
-    text: "Data yang sudah dihapus tidak bisa dikembalikan",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Hapus'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // continue with delete action
-      document.location.href = 'delete.php?id=<?= $gp["id"]; ?>';
-    }
+  const deleteLinks = document.querySelectorAll('.delete-link');
+
+  deleteLinks.forEach(deleteLink => {
+    deleteLink.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      Swal.fire({
+        title: 'Yakin Mau Hapus Data Produk?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = deleteLink.getAttribute('href');
+        }
+      })
+    });
   });
-}
 </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../sweetalert/sweetalert2.all.min.js"></script>

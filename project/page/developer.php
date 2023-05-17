@@ -128,7 +128,7 @@ if (!isset($_SESSION["login"])) {
                                 <i class="mt-1 text-light fa-brands fa-line"></i>Line
                             </a>
                         </li>
-                        z<li class="social-item bg-dark">
+                        <li class="social-item bg-dark">
                             <a class="text-decoration-none text-light d-flex gap-1  justify-content-center mt-1" href="https://github.com/IopeRan" target="_blank">
                                 <i class="mt-1 text-light fa-brands fa-github"></i>Github
                             </a>

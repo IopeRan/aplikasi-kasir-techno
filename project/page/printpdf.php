@@ -8,7 +8,12 @@ if (!isset($_SESSION["login"])) {
 
 require '../functions/functions.php';
 
-$getTransaksi = query("SELECT * FROM transaksi");
+$dari = $_GET["dari"];
+$sampai = $_GET["sampai"];
+
+$getTransaksi = query("SELECT * FROM transaksi WHERE tanggal BETWEEN '$dari' AND '$sampai'");
+
+// $getTransaksi = query("SELECT * FROM transaksi BETWEEN $dari AND $sampai");
 
 ?>
 <!DOCTYPE html>
@@ -44,59 +49,52 @@ $getTransaksi = query("SELECT * FROM transaksi");
         <!-- ------ -->  
         <!-- Content -->
         <div class="container">
-        <table class="table table-dark shadow-lg mt-2 mx-auto" style="width: 100%;">
+        <table class="table table-dark table-striped mt-2 mx-auto fw-normal shadow-sm" style="width: 100%;">
                         <thead>
                             <tr class="text-center">
-                                <th colspan="6">Riwayat Pembelian Techno Gallery</th>
+                                <th colspan="7">Riwayat Pembelian Techno Gallery</th>
                             </tr>
                             <tr class="text-center text-warning">
                                 <!-- <th>ID</th> -->
-                                <th width="400" scope="col">Pembeli</th>
-                                <th scope="col" width="400">Tanggal Transaksi</th>
-                                <th scope="col" width="400">Produk</th>
-                                <th scope="col" width="200">Total Produk</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Pembeli</th>
+                                <th scope="col">Tanggal Transaksi</th>
+                                <th scope="col">Produk</th>
+                                <th scope="col">Total Produk</th>
                                 <th scope="col">Harga</th>
-                                <th scope="col" width="350">Pembayaran</th>
+                                <th scope="col">Pembayaran</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            // $data=$conn->query("SELECT * FROM transaksi");
+                            <?php 
                             $no = 1;
                             $total = 0;
                             $sold = 0;
-                            // filter
-                            if(isset($_POST["filter"])) {
-                                $dari_tanggal = mysqli_real_escape_string($conn, $_POST["dari_tanggal"]);
-                                $sampai_tanggal = mysqli_real_escape_string($conn, $_POST["sampai_tanggal"]);
-                                $data_barang = mysqli_query($conn, "SELECT * FROM transaksi WHERE tanggal BETWEEN '$dari_tanggal' AND '$sampai_tanggal'");
-                            } else {
-                                $data_barang = mysqli_query($conn, "SELECT * FROM transaksi WHERE tanggal");
-                            }
-                            // while($getTransaksi = $data->fetch_array()) {
-                            while ($gt = mysqli_fetch_array($data_barang)) :
-
-                                $total += $gt["harga"];
-                                $sold += $gt["total"];
+                            foreach ($getTransaksi as $transaksi) : 
+                                $total += $transaksi["harga"];
+                                $sold += $transaksi["total"];
                             ?>
-                                <tr class="text-center">
-                                    <td><?= $gt["pembeli"]; ?></td>
-                                    <td><?= $gt["tanggal"]; ?></td>
-                                    <td><?= $gt["produk"]; ?></td>
-                                    <td><?= $gt["total"]; ?></td>
-                                    <td><?= $gt["hasil"]; ?></td>
-                                    <td><?= $gt["bayar"]; ?></td>
-                                </tr>
-                            <?php endwhile; ?>
+                                    <tr class="text-center">
+                                        <td scope="row"><?= $transaksi["id"]; ?></td>
+                                        <td><?= $transaksi["pembeli"]; ?></td>
+                                        <td><?= $transaksi["tanggal"]; ?></td>
+                                        <td><?= $transaksi["produk"]; ?></td>
+                                        <td><?= $transaksi["total"]; ?></td>
+                                        <td><?= $transaksi["hasil"]; ?></td>
+                                        <td><?= $transaksi["bayar"]; ?></td>
+                                    </tr>
+                            <?php endforeach; ?>
                             <tr class="text-center">
-                                <td width="210">Produk Yang Terjual :</td>
-                                <td><?= $sold; ?>&nbsp;&nbsp;unit</td>
+                                <td>Produl Terjual : <?= $sold; ?>&nbsp;&nbsp;unit</td>
                                 <td></td>
                                 <td></td>
-                                <td width="250">| Total Pendapatan :</td>
-                                <td>Rp.<?= $total; ?></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>| Total Pendapatan : Rp.<?= $total; ?></td>
                             </tr>
                         </tbody>
+                    </table>
                     </table>
                 </div>
         <!-- ------- -->

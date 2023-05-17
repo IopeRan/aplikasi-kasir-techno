@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 require '../functions/functions.php';
 require '../page/link.php';

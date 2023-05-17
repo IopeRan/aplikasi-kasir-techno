@@ -25,7 +25,7 @@
 // $password = "";
 // $db_name = "technoarea";
 
-$conn = mysqli_connect("localhost", "root", "", "technoarea");
+$conn = mysqli_connect('localhost', 'root', '', 'technoarea');
 // ----------------
 
 // ambil data produk
@@ -64,10 +64,61 @@ function tambah($data) {
     $harga = $data["harga"];
     $tanggal = $data["tanggal_masuk"];
 
-    $query = "INSERT INTO produk VALUES ('', '$kode', '$produk', '$harga', '$tanggal')";
+    // upload gambar
+    $gambar = upload();
+    if(!$gambar) {
+        return false;
+    }
+
+    $query = "INSERT INTO produk VALUES ('', '$kode', '$produk', '$harga', '$tanggal', '$gambar')";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
+}
+
+function upload() {
+    $fileName = $_FILES['gambar']['name'];
+    $fileSize = $_FILES['gambar']['size'];
+    $error = $_FILES['gambar']['error'];
+    $tmpName = $_FILES['gambar']['tmp_name'];
+
+    // check
+    if($error === 4) {
+        echo "<script>
+                alert('Anda Tidak Menambahkan Gambar');
+             </script>";
+        return false;
+    }
+
+        // check
+    $extensionValidImage = ['jpg', 'jpeg', 'png'];
+    $extensionImage = explode('.', $fileName);
+    $extensionImage = strtolower(end($extensionImage));
+
+    if(!in_array($extensionImage, $extensionValidImage)) {
+        echo "<script>
+            alert('Yang Anda Upload Bukan Gambar');
+        </script>";
+        return false;
+    }
+
+    // check[size]
+    if($fileSize > 5000000 ) {
+        echo "<script>
+            alert('Size Gambar Terlalu Besar');
+        </script>";
+    return false;
+    }
+
+    //Generate New Name
+    $newFileName = uniqid();
+    $newFileName .= '.';
+    $newFileName .= $extensionImage;
+
+    // Ready to Upload
+    move_uploaded_file($tmpName, '../assets/img/' .$newFileName);
+    return $newFileName;
+
 }
 
 // transaksi 
@@ -138,13 +189,28 @@ function edit($data) {
     global $conn; 
  
     $id = $data["id"];
+    $kode = htmlspecialchars($data["kode"]);
     $produk = htmlspecialchars($data["produk"]);
     $harga = htmlspecialchars($data["harga"]);
+    $tanggal = htmlspecialchars($data["tanggal_masuk"]);
+    $gambarLama = htmlspecialchars($data["gambarLama"]);
+
+    // check
+    if($_FILES['gambar']['error'] === 4 ) {
+        $gambar = $gambarLama;
+    } else {
+        $gambar = upload();
+    }
+    // $gambar = htmlspecialchars($data["gambar"]);
  
     $query = "UPDATE produk SET 
                   id = '$id',
+                  kode = '$kode',
                   produk = '$produk',
-                  harga = '$harga'
+                  harga = '$harga',
+                  tanggal_masuk = '$tanggal',
+                  gambar = '$gambar'
+
              WHERE id = $id
     ";
  
