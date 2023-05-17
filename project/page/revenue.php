@@ -235,14 +235,7 @@ if (isset($_POST["cari"])) {
                     </ul>
                 </nav>
                 <!-- /Navigasi Pagination -->
-                <a href="printpdf.php?dari=<?= $dari_tanggal; ?>&&sampai=<?= $sampai_tanggal; ?>" style="width: 150px;" class="btn btn-danger shadow-lg">Cetak Tabel(PDF)</a>
-                <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    function printPDF() {
-                    // Kode untuk membuat PDF menggunakan jsPDF
-                    }
-                });
-                </script>
+                <a href="printpdf.php?dari=<?= $dari_tanggal; ?>&&sampai=<?= $sampai_tanggal; ?>" target="_blank" style="width: 150px;" class="btn btn-danger shadow-lg">Cetak Tabel(PDF)</a>
                 </div>
             </div>
         </div>

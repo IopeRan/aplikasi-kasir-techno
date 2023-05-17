@@ -13,8 +13,6 @@ $sampai = $_GET["sampai"];
 
 $getTransaksi = query("SELECT * FROM transaksi WHERE tanggal BETWEEN '$dari' AND '$sampai'");
 
-// $getTransaksi = query("SELECT * FROM transaksi BETWEEN $dari AND $sampai");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
