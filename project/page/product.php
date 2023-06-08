@@ -35,6 +35,10 @@ if (isset($_POST['findprice'])) {
   $getproduk = findsearch($_POST["searchprice"]);
 }
 
+if (isset($_POST['findcode'])) {
+  $getproduk = findcode($_POST["searchcode"]);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +55,11 @@ if (isset($_POST['findprice'])) {
   <link href="../src/css/sidenav.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="icon" href="../assets/TC.png">
+  <style>
+  .hidden-link {
+    display: <?php echo $display; ?>;
+  }
+</style>
 </head>
 
 <body style="background-color: #e6e6e6;">
@@ -118,7 +127,7 @@ if (isset($_POST['findprice'])) {
         ?>
         <div class="table-responsive card container p-4 my-5 shadow-lg">
         <div class="d-flex flex-column">
-        <a href="add.php" class="btn btn-primary my-2 px-1 py-2" style="width: 150px;">Tambah Produk</a>
+        <a href="add.php" class="btn btn-primary my-2 px-1 py-2 hidden-link" style="width: 150px;">Tambah Produk</a>
           <form class="d-flex flex-row" action="" method="post">
             <input class="shadow-lg border w-100 my-1 max-width" autocomplete="off" style="height: 35px; border: none; outline: none;" type="number" id="searchid" name="searchid" placeholder="cari ID barang">
             <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findid" id="findid"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -130,6 +139,10 @@ if (isset($_POST['findprice'])) {
           <form class="d-flex flex-row" action="" method="post">
             <input class="shadow-lg border w-100 my-1 max-width" autocomplete="off" style="height: 35px; border: none; outline: none;" type="number" id="searchprice" name="searchprice" placeholder="cari Harga barang">
             <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findprice" id="findprice"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
+          <form class="d-flex flex-row" action="" method="post">
+            <input class="shadow-lg border w-100 my-1 max-width" autocomplete="off" style="height: 35px; border: none; outline: none;" type="text" id="searchcode" name="searchcode" placeholder="cari Kode barang">
+            <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findcode" id="findcode"><i class="fa-solid fa-magnifying-glass"></i></button>
           </form>
         </div>
         <div class="fw-bold">PRODUK TECHNO GALLERY</div>

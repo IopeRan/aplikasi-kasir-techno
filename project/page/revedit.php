@@ -1,4 +1,6 @@
 <?php 
+session_start();
+
 require '../functions/functions.php';
 require '../page/link.php';
 
@@ -52,7 +54,7 @@ if(isset($_POST["edit"])) {
                 <div class="sidebar-heading border-bottom bg-light">Techno Cashier</div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="dashboard.php"><i class="fa-solid fa-gauge"></i><span style="margin-left: 13px;">Dashboard</span></a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="menu-revenue.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-sharp fa-solid fa-chart-simple"></i><span style="margin-left: 15px;">Revenue</span></a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="revenue.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-sharp fa-solid fa-chart-simple"></i><span style="margin-left: 15px;">Revenue</span></a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="product.php"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-basket-shopping"></i><span style="margin-left: 10px;">Product</span></a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="https://www.google.com/maps/place/Techno+Park/@-3.2959495,114.5899544,21z/data=!4m14!1m7!3m6!1s0x2de4211bbc1be42d:0xd93490f4e3d79a8e!2sSMK+Negeri+2+Banjarmasin!8m2!3d-3.2956862!4d114.5900279!16s%2Fg%2F11g__vfj2!3m5!1s0x2de423a0d2934103:0x4e32c230b154c815!8m2!3d-3.2959072!4d114.5898031!16s%2Fg%2F11h_sm3wgw" target="_blank"><i style="margin-top: -10px;" style="margin-top: 10px;" class="fa-solid fa-location-dot"></i><span style="margin-left: 15px;">Location</span></a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="jadwal.php"><i class="fa-solid fa-calendar"></i><span style="margin-left: 10px;">Schedulle</span></a>
@@ -100,13 +102,21 @@ if(isset($_POST["edit"])) {
                 <!-- /script sidebar -->
                 <!-- Page content-->
                 <div class="container-fluid">
+                <?php 
+                            
+                    if (in_array("manager", $_SESSION['admin_akses'])) {
+                      echo "<div class='alert alert-danger mt-5' role='alert'>You dont have the permission to acces this page</div>";
+                    exit();
+                  }
+                                     
+                ?>
                    <div class="bg-light shadow-lg rounded my-3 mx-auto p-3" style="width: 100%; height: max-content">
                     <div class="h5">Edit Riwayat Transaksi</div>
                     <hr>
                     <form action="" method="post" class="my-5 d-flex flex-column">
                         <input class="rounded my-1 shadow-lg" style="border: none; outline: none;" type="hidden" id="id" name="id" value="<?= $gt["id"]; ?>">
                         <input class="rounded my-1 shadow-lg" style="border: none; outline: none;" type="text" id="pembeli" name="pembeli" value="<?= $gt["pembeli"]; ?>">
-                        <input class="rounded my-1 shadow-lg" style="border: none; outline: none;" type="text" id="tanggal" name="tanggal" value="<?= $gt["tanggal"]; ?>">
+                        <input class="rounded my-1 shadow-lg" style="border: none; outline: none;" type="date" id="tanggal" name="tanggal" value="<?= $gt["tanggal"]; ?>">
                         <input class="rounded my-1 shadow-lg" style="border: none; outline: none;" type="text" id="produk" name="produk" value="<?= $gt["produk"]; ?>">
                         <input class="rounded my-1 shadow-lg" style="border: none; outline: none;" type="text" id="harga" name="harga" value="<?= $gt["harga"]; ?>">
                         <input class="rounded my-1 shadow-lg" style="border: none; outline: none;" type="text" id="total" name="total" value="<?= $gt["total"]; ?>">

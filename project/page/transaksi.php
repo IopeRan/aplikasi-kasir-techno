@@ -12,23 +12,6 @@ if (!isset($_SESSION["login"])) {
 $id = $_GET["id"];
 // query data produk berdasarkan id
 $gp = query("SELECT * FROM produk WHERE id = $id")[0];
-// var_dump($gp);
-
-// if (isset($_POST["save"])) {
-//     // cek apakah tombol submit sudah ditekan atau belum
-//     if (transaksi($_POST) > 0) {
-//         echo "<script>
-//                 alert('data berhasil ditambahkan');
-//                 window.location = 'product.php';
-//              </script>";
-//     } else {
-//         echo "<script>
-//                 alert('data gagal ditambahkan');
-//                 window.location = 'product.php';
-//              </script>";
-//     }
-// }
-
 
 ?>
 <!DOCTYPE html>
@@ -109,6 +92,12 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
             <!-- /script sidebar -->
             <!-- Page content-->
             <div class="container-fluid">
+                <?php 
+                if (in_array("manager", $_SESSION['admin_akses'])) {
+                    echo "<div class='alert alert-danger mt-5' role='alert'>You dont have the permission to acces this page</div>";
+                exit();
+                }
+                ?>
                 <div class="bg-light rounded shadow-lg mx-auto my-5 p-3" style="width: 100%; height: max-content;">
                     <div class="h4">Pembayaran</div>
                     <hr>

@@ -38,11 +38,11 @@ if(isset($_POST['login'])) {
         while($r1 = mysqli_fetch_array($q1)){
             $akses[] = $r1['akses_id']; 
         }
-        if(empty($akses)) {
-            $err .= "<div class='alert alert-danger mx-auto' role='alert' style='width: 373px; height: 55px;'>
-            You dont have permission
-        </div>";
-        }
+        // if(empty($akses)) {
+        //     $err .= "<div class='alert alert-danger mx-auto' role='alert' style='width: 373px; height: 55px;'>
+        //     You dont have permission
+        // </div>";
+        // }
     }
     if(empty($err)) {
         $_SESSION['login'] = true;
@@ -82,7 +82,7 @@ if(isset($_POST['login'])) {
         <form action="" method="post" class="d-flex flex-column gap-4">
             <input class="rounded mx-auto shadow-lg text-center" value="<?= $username; ?>" style="width: 373px; height: 36px; outline: none; border: none;" type="text" autocomplete="off" htmlspecialchars id="username" name="username" placeholder="Username">
             <input class="rounded mx-auto shadow-lg text-center" style="width: 373px; height: 36px; outline: none; border: none;" type="password" autocomplete="off" htmlspecialchars id="password" name="password" placeholder="Password">
-            <button class="btn btn-primary mx-auto" style="width: 373px; height: 36px;" id="login" name="login">LOGIN</button>
+            <button class="btn btn-primary mx-auto shadow-lg" style="width: 373px; height: 36px;" id="login" name="login">LOGIN</button>
             <hr class="mx-auto mt-1" style="width: 90%;">
             <div class="mx-auto" style="font-size: 14px; margin-top: -35px; margin-bottom: 50px;"><span>don't have an account?</span><a class="text-decoration-none" href="register.php">create account</a></div>
         </form>

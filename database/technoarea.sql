@@ -3,11 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2023 at 05:52 PM
+-- Generation Time: Jun 08, 2023 at 01:52 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -21,24 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `technoarea`
 --
-CREATE DATABASE IF NOT EXISTS `technoarea` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `technoarea`;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `admin`
 --
--- Creation: Apr 07, 2023 at 12:29 AM
+-- Creation: May 19, 2023 at 11:30 AM
+-- Last update: Jun 08, 2023 at 10:48 AM
 --
 
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE IF NOT EXISTS `admin` (
-  `login_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `admin` (
+  `login_id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password` varchar(250) NOT NULL,
-  PRIMARY KEY (`login_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `password` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELATIONSHIPS FOR TABLE `admin`:
@@ -56,22 +52,21 @@ TRUNCATE TABLE `admin`;
 INSERT DELAYED IGNORE INTO `admin` (`login_id`, `username`, `password`) VALUES
 (1, 'Admin', '0192023a7bbd73250516f069df18b500'),
 (2, 'Cashier', 'dbb8c54ee649f8af049357a5f99cede6'),
-(3, 'Bendahara', '62f7dec74b78ba0398e6a9f317f55126');
+(3, 'Bendahara', '62f7dec74b78ba0398e6a9f317f55126'),
+(4, 'Manager', '0795151defba7a4b5dfa89170de46277');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `admin_akses`
 --
--- Creation: Apr 07, 2023 at 01:11 AM
+-- Creation: May 19, 2023 at 11:30 AM
+-- Last update: Jun 08, 2023 at 11:32 AM
 --
 
-DROP TABLE IF EXISTS `admin_akses`;
-CREATE TABLE IF NOT EXISTS `admin_akses` (
+CREATE TABLE `admin_akses` (
   `login_id` int(11) NOT NULL,
-  `akses_id` varchar(70) NOT NULL,
-  KEY `akses_id` (`akses_id`),
-  KEY `login_id` (`login_id`)
+  `akses_id` varchar(70) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -92,24 +87,30 @@ TRUNCATE TABLE `admin_akses`;
 --
 
 INSERT DELAYED IGNORE INTO `admin_akses` (`login_id`, `akses_id`) VALUES
-(1, 'cashier'),
 (1, 'bendahara'),
+(1, 'cashier'),
+(3, 'bendahara'),
 (2, 'cashier'),
-(3, 'bendahara');
+(3, 'manager'),
+(2, 'manager'),
+(4, 'cashier'),
+(4, 'bendahara'),
+(4, 'cashier'),
+(4, 'bendahara'),
+(4, 'manager');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `master_akses`
 --
--- Creation: Apr 07, 2023 at 01:07 AM
+-- Creation: May 19, 2023 at 11:30 AM
+-- Last update: Jun 08, 2023 at 10:46 AM
 --
 
-DROP TABLE IF EXISTS `master_akses`;
-CREATE TABLE IF NOT EXISTS `master_akses` (
+CREATE TABLE `master_akses` (
   `akses_id` varchar(50) NOT NULL,
-  `nama` varchar(200) NOT NULL,
-  PRIMARY KEY (`akses_id`)
+  `nama` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -126,24 +127,28 @@ TRUNCATE TABLE `master_akses`;
 --
 
 INSERT DELAYED IGNORE INTO `master_akses` (`akses_id`, `nama`) VALUES
-('bendahara', 'bendahara'),
-('cashier', 'Cashier');
+('admin', 'Admin'),
+('bendahara', 'Bendahara'),
+('cashier', 'Cashier'),
+('manager', 'manager');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `produk`
 --
--- Creation: Apr 02, 2023 at 02:34 AM
+-- Creation: May 19, 2023 at 11:37 AM
+-- Last update: Jun 08, 2023 at 11:39 AM
 --
 
-DROP TABLE IF EXISTS `produk`;
-CREATE TABLE IF NOT EXISTS `produk` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `produk` (
+  `id` int(11) NOT NULL,
+  `kode` varchar(70) NOT NULL,
+  `tanggal_masuk` date NOT NULL,
+  `gambar` text NOT NULL,
   `produk` varchar(200) NOT NULL,
-  `harga` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `harga` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELATIONSHIPS FOR TABLE `produk`:
@@ -158,24 +163,20 @@ TRUNCATE TABLE `produk`;
 -- Dumping data for table `produk`
 --
 
-INSERT DELAYED IGNORE INTO `produk` (`id`, `produk`, `harga`) VALUES
-(1, 'GANTUNGAN KUNCI ', '30000'),
-(2, 'PAKAN IKAN OTOMATIS', '300000'),
-(3, 'SABUN LAUNDRY', '25000'),
-(14, 'POSTER ANIMASI', '35000'),
-(15, 'VGA GTX 1050', '1500000');
+INSERT DELAYED IGNORE INTO `produk` (`id`, `kode`, `tanggal_masuk`, `gambar`, `produk`, `harga`) VALUES
+(6, 'asd', '2023-06-08', '6481b903f11f1.png', 'barang_testing', '30000');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `transaksi`
 --
--- Creation: Apr 08, 2023 at 01:51 AM
+-- Creation: May 19, 2023 at 11:30 AM
+-- Last update: Jun 08, 2023 at 11:42 AM
 --
 
-DROP TABLE IF EXISTS `transaksi`;
-CREATE TABLE IF NOT EXISTS `transaksi` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `transaksi` (
+  `id` int(11) NOT NULL,
   `pembeli` varchar(200) NOT NULL,
   `tanggal` varchar(300) NOT NULL,
   `produk` varchar(200) NOT NULL,
@@ -183,9 +184,8 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `total` varchar(200) NOT NULL,
   `hasil` varchar(200) NOT NULL,
   `bayar` varchar(200) NOT NULL,
-  `payback` varchar(300) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `payback` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- RELATIONSHIPS FOR TABLE `transaksi`:
@@ -201,18 +201,64 @@ TRUNCATE TABLE `transaksi`;
 --
 
 INSERT DELAYED IGNORE INTO `transaksi` (`id`, `pembeli`, `tanggal`, `produk`, `harga`, `total`, `hasil`, `bayar`, `payback`) VALUES
-(13, 'Abdul Aziz', 'Wednesday, 8-Apr-2023', 'GANTUNGAN KUNCI', '25000', '1', '25000', '25000', '0'),
-(16, 'Syahla Nur Azizah', 'Thursday, 8-Apr-2023', 'SABUN LAUNDRY', '25000', '1', '25000', '50000', '-25000'),
-(17, 'Erlang Andriyanputra', 'Thursday, 8-Apr-2023', 'VGA GTX 1050', '1500000', '1', '1500000', '1500000', '0'),
-(18, 'testing', 'Friday, 8-Apr-2023', 'GANTUNGAN KUNCI ', '30000', '1', '30000', '30000', '0'),
-(19, 'testing', 'Friday, 8-Apr-2023', 'GANTUNGAN KUNCI ', '30000', '1', '30000', '30000', '0'),
-(20, 'testing', 'Friday, 8-Apr-2023', 'GANTUNGAN KUNCI ', '30000', '1', '30000', '30000', '0'),
-(21, 'testing', 'Friday, 8-Apr-2023', 'GANTUNGAN KUNCI ', '30000', '1', '30000', '30000', '0'),
-(22, 'testing', 'Friday, 8-Apr-2023', 'GANTUNGAN KUNCI ', '30000', '1', '30000', '30000', '0'),
-(23, 'testing', 'Friday, 8-Apr-2023', 'GANTUNGAN KUNCI ', '30000', '1', '30000', '30000', '0'),
-(24, 'testing', 'Friday, 8-Apr-2023', 'GANTUNGAN KUNCI ', '30000', '1', '30000', '30000', '0'),
-(25, 'testing', 'Friday, 8-Apr-2023', 'GANTUNGAN KUNCI ', '30000', '1', '30000', '30000', '0'),
-(26, 'testing', 'Friday, 8-Apr-2023', 'GANTUNGAN KUNCI ', '30000', '1', '30000', '30000', '0');
+(4, 'tes', '2023-06-08', 'barang_testing', '30000', '1', '30000', '30000', '0');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`login_id`);
+
+--
+-- Indexes for table `admin_akses`
+--
+ALTER TABLE `admin_akses`
+  ADD KEY `akses_id` (`akses_id`),
+  ADD KEY `login_id` (`login_id`);
+
+--
+-- Indexes for table `master_akses`
+--
+ALTER TABLE `master_akses`
+  ADD PRIMARY KEY (`akses_id`);
+
+--
+-- Indexes for table `produk`
+--
+ALTER TABLE `produk`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `produk`
+--
+ALTER TABLE `produk`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -224,132 +270,6 @@ INSERT DELAYED IGNORE INTO `transaksi` (`id`, `pembeli`, `tanggal`, `produk`, `h
 ALTER TABLE `admin_akses`
   ADD CONSTRAINT `admin_akses_ibfk_1` FOREIGN KEY (`akses_id`) REFERENCES `master_akses` (`akses_id`),
   ADD CONSTRAINT `admin_akses_ibfk_2` FOREIGN KEY (`login_id`) REFERENCES `admin` (`login_id`);
-
-
---
--- Metadata
---
-USE `phpmyadmin`;
-
---
--- Metadata for table admin
---
-
---
--- Truncate table before insert `pma__column_info`
---
-
-TRUNCATE TABLE `pma__column_info`;
---
--- Truncate table before insert `pma__table_uiprefs`
---
-
-TRUNCATE TABLE `pma__table_uiprefs`;
---
--- Truncate table before insert `pma__tracking`
---
-
-TRUNCATE TABLE `pma__tracking`;
---
--- Metadata for table admin_akses
---
-
---
--- Truncate table before insert `pma__column_info`
---
-
-TRUNCATE TABLE `pma__column_info`;
---
--- Truncate table before insert `pma__table_uiprefs`
---
-
-TRUNCATE TABLE `pma__table_uiprefs`;
---
--- Truncate table before insert `pma__tracking`
---
-
-TRUNCATE TABLE `pma__tracking`;
---
--- Metadata for table master_akses
---
-
---
--- Truncate table before insert `pma__column_info`
---
-
-TRUNCATE TABLE `pma__column_info`;
---
--- Truncate table before insert `pma__table_uiprefs`
---
-
-TRUNCATE TABLE `pma__table_uiprefs`;
---
--- Truncate table before insert `pma__tracking`
---
-
-TRUNCATE TABLE `pma__tracking`;
---
--- Metadata for table produk
---
-
---
--- Truncate table before insert `pma__column_info`
---
-
-TRUNCATE TABLE `pma__column_info`;
---
--- Truncate table before insert `pma__table_uiprefs`
---
-
-TRUNCATE TABLE `pma__table_uiprefs`;
---
--- Truncate table before insert `pma__tracking`
---
-
-TRUNCATE TABLE `pma__tracking`;
---
--- Metadata for table transaksi
---
-
---
--- Truncate table before insert `pma__column_info`
---
-
-TRUNCATE TABLE `pma__column_info`;
---
--- Truncate table before insert `pma__table_uiprefs`
---
-
-TRUNCATE TABLE `pma__table_uiprefs`;
---
--- Truncate table before insert `pma__tracking`
---
-
-TRUNCATE TABLE `pma__tracking`;
---
--- Metadata for database technoarea
---
-
---
--- Truncate table before insert `pma__bookmark`
---
-
-TRUNCATE TABLE `pma__bookmark`;
---
--- Truncate table before insert `pma__relation`
---
-
-TRUNCATE TABLE `pma__relation`;
---
--- Truncate table before insert `pma__savedsearches`
---
-
-TRUNCATE TABLE `pma__savedsearches`;
---
--- Truncate table before insert `pma__central_columns`
---
-
-TRUNCATE TABLE `pma__central_columns`;SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

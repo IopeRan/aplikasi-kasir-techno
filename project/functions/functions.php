@@ -70,7 +70,7 @@ function tambah($data) {
         return false;
     }
 
-    $query = "INSERT INTO produk VALUES ('', '$kode', '$produk', '$harga', '$tanggal', '$gambar')";
+    $query = "INSERT INTO produk VALUES ('', '$kode', '$tanggal', '$gambar', '$produk', '$harga')";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -175,6 +175,14 @@ function findsearch($keyword) {
     return query($query);
 }
 
+function findcode($keyword) {
+    $query = "SELECT * FROM produk
+                        WHERE
+              kode LIKE '%$keyword%'
+             ";
+    return query($query);
+}
+
 // function delete
 function delete($id) {
     global $conn;
@@ -206,10 +214,10 @@ function edit($data) {
     $query = "UPDATE produk SET 
                   id = '$id',
                   kode = '$kode',
-                  produk = '$produk',
-                  harga = '$harga',
                   tanggal_masuk = '$tanggal',
-                  gambar = '$gambar'
+                  gambar = '$gambar',
+                  produk = '$produk',
+                  harga = '$harga'
 
              WHERE id = $id
     ";

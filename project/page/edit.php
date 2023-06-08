@@ -1,4 +1,5 @@
 <?php 
+session_start();
 
 require '../functions/functions.php';
 require 'link.php';
@@ -107,6 +108,14 @@ if(isset($_POST["edit"])) {
                 <!-- /script sidebar -->
                 <!-- Page content-->
                 <div class="container-fluid">
+                <?php 
+                            
+                    if (in_array("manager", $_SESSION['admin_akses'])) {
+                        echo "<div class='alert alert-danger mt-5' role='alert'>You dont have the permission to acces this page</div>";
+                    exit();
+                    }
+                                     
+                ?>
                    <div class="bg-light mx-auto my-3 shadow-lg rounded p-3" style="width: 100%; height: max-content;">
                     <div class="h3">Edit Data Produk</div>
                     <hr>
