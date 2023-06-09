@@ -9,6 +9,19 @@ $id = $_GET["id"];
 $gpe = query("SELECT * FROM produk WHERE id = $id")[0];
 //  
 
+if (!in_array("cashier", $_SESSION['admin_akses'])) {
+    echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Anda Tidak Memiliki Akses Sebagai Kasir',
+        }).then(() => {
+            window.location.href = 'product.php';
+        });
+    </script>";
+    exit();
+}   
+
 if(isset($_POST["edit"])) {
     if(edit($_POST) > 0 ) {
         echo "<script>
@@ -108,14 +121,6 @@ if(isset($_POST["edit"])) {
                 <!-- /script sidebar -->
                 <!-- Page content-->
                 <div class="container-fluid">
-                <?php 
-                            
-                    if (in_array("manager", $_SESSION['admin_akses'])) {
-                        echo "<div class='alert alert-danger mt-5' role='alert'>You dont have the permission to acces this page</div>";
-                    exit();
-                    }
-                                     
-                ?>
                    <div class="bg-light mx-auto my-3 shadow-lg rounded p-3" style="width: 100%; height: max-content;">
                     <div class="h3">Edit Data Produk</div>
                     <hr>

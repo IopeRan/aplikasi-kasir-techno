@@ -2,6 +2,7 @@
 session_start();
 
 require '../functions/functions.php';
+require 'link.php';
 
 if (!isset($_SESSION["login"])) {
     header("Location: login.php");
@@ -12,6 +13,19 @@ if (!isset($_SESSION["login"])) {
 $id = $_GET["id"];
 
 $gte = query("SELECT * FROM transaksi WHERE id = $id")[0];
+
+if (!in_array("cashier", $_SESSION['admin_akses']) && !in_array("bendahara", $_SESSION['admin_akses'])) {
+    echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Anda Tidak Memiliki Akses Sebagai Kasir Maupun Bendahara',
+        }).then(() => {
+            window.location.href = 'dashboard.php';
+        });
+    </script>";
+    exit();
+  }
 
 ?>
 <!DOCTYPE html>
@@ -32,12 +46,6 @@ $gte = query("SELECT * FROM transaksi WHERE id = $id")[0];
         <div class="d-flex" id="wrapper">
                 <!-- Page content-->
                 <div class="container-fluid d-flex align-items-center flex-column" style="margin-top: 150px;">
-                <?php 
-                    if (in_array("manager", $_SESSION['admin_akses'])) {
-                        echo "<div class='alert alert-danger mt-5' role='alert'>You dont have the permission to acces this page</div>";
-                    exit();
-                }
-                ?>
                    <div class="bg-light shadow-lg mx-auto my-auto" style="width: max-content; height: max-content;">
                         <div class="text-center text-bold h5 mt-3">Techno Cashier</div>
                         <ul class="d-flex flex-column list-unstyled mt-5" style="margin-left: 15px; margin-right: 15px;">

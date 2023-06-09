@@ -7,11 +7,25 @@ if (!isset($_SESSION["login"])) {
 }
 
 require '../functions/functions.php';
+require 'link.php';
 
 $dari = $_GET["dari"];
 $sampai = $_GET["sampai"];
 
 $getTransaksi = query("SELECT * FROM transaksi WHERE tanggal BETWEEN '$dari' AND '$sampai'");
+
+if (!in_array("bendahara", $_SESSION['admin_akses'])) {
+    echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Anda Tidak Memiliki Akses Sebagai Bendahara',
+        }).then(() => {
+            window.location.href = 'revenue.php';
+        });
+    </script>";
+    exit();
+  }
 
 ?>
 <!DOCTYPE html>
@@ -31,12 +45,6 @@ $getTransaksi = query("SELECT * FROM transaksi WHERE tanggal BETWEEN '$dari' AND
     <link rel="icon" href="../assets/TC.png">
 </head>
 <body onload="window.print()">
-    <?php 
-    if (in_array("manager", $_SESSION['admin_akses'])) {
-        echo "<div class='alert alert-danger mt-5' role='alert'>You dont have the permission to acces this page</div>";
-    exit();
-    }
-    ?>
     <div>
         <!-- Header -->
         <div class="d-flex flex-column align-items-center justify-content-center p-3" style="border-bottom: 10px double #222;">

@@ -6,19 +6,17 @@ require '../page/link.php';
 
 $id = $_GET["id"];
 
-if (in_array("manager", $_SESSION['admin_akses'])) {
-  echo "
-  <script>
-  Swal.fire({
-    title: 'Anda Tidak Bisa Mengakses Ini!!!',
-    icon: 'warning',
-    confirmButtonText: 'OK'
-  }).then(function() {
-    window.location.href = 'product.php';
-  });
-  </script>
-  ";
-exit();
+if (!in_array("cashier", $_SESSION['admin_akses'])) {
+  echo "<script>
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Anda Tidak Memiliki Akses Sebagai Kasir',
+      }).then(() => {
+          window.location.href = 'product.php';
+      });
+  </script>";
+  exit();
 }
 
 if (delete($id) > 0) {

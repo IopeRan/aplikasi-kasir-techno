@@ -1,5 +1,7 @@
 <?php 
+session_start();
 require '../functions/functions.php';
+require 'link.php';
 
 $dataPerPage = 10;
 $countData = count(query("SELECT * FROM transaksi"));
@@ -10,6 +12,19 @@ $earlyData = ($dataPerPage * $page) - $dataPerPage;
 // $getTransaksi = query("SELECT * FROM transaksi LIMIT ");
 
 $getTransaksi = query("SELECT * FROM transaksi ORDER BY id DESC LIMIT $earlyData, $dataPerPage");
+
+if (!in_array("cashier", $_SESSION['admin_akses'])) {
+    echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Anda Tidak Memiliki Akses Sebagai Kasir',
+        }).then(() => {
+            window.location.href = 'product.php';
+        });
+    </script>";
+    exit();
+  }
 
 ?>
 <!DOCTYPE html>
@@ -94,7 +109,7 @@ $getTransaksi = query("SELECT * FROM transaksi ORDER BY id DESC LIMIT $earlyData
                         <td><?= $gt["id"]; ?></td>
                         <td><?= $gt["pembeli"];?></td>
                         <td><?= $gt["tanggal"]; ?></td>
-                        <td><a href="struk.php?id=<?= $gt["id"]; ?>"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
+                        <td><a href="struk.php?id=<?= $gt["id"]; ?>" target="_blank"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
                     </tr>
                     <?php endforeach; ?>
                    </table>

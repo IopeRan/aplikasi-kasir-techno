@@ -9,47 +9,55 @@ if (isset($_SESSION["login"])) {
 
 require '../functions/functions.php';
 
-// Login Sistem
+// Login System
 $username = "";
 $password = "";
 $err = "";
-if(isset($_POST['login'])) {
+if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    if($username == '' or $password == ''){
+    if ($username == '' or $password == '') {
         $err .= "<div class='alert alert-danger mx-auto' role='alert' style='width: 373px; height: 55px;'>
-        Username atau Password kosong
-    </div>";
+            Username atau Password kosong
+        </div>";
     }
-    if(empty($err)) {
+    if (empty($err)) {
         $sql1 = "SELECT * FROM admin WHERE username = '$username'";
         $q1 = mysqli_query($conn, $sql1);
-        $r1 = mysqli_fetch_array($q1);
-        if($r1['password'] != md5($password)) {
+        if ($q1 && mysqli_num_rows($q1) > 0) {
+            $r1 = mysqli_fetch_array($q1);
+            if ($r1['password'] != md5($password)) {
+                $err .= "<div class='alert alert-danger mx-auto' role='alert' style='width: 373px; height: 55px;'>
+                    Password salah
+                </div>";
+            }
+        } else {
             $err .= "<div class='alert alert-danger mx-auto' role='alert' style='width: 373px; height: 55px;'>
-            Password salah
-        </div>";
+                Username tidak ditemukan
+            </div>";
         }
     }
-    if(empty($err)) {
+    if (empty($err)) {
         $login_id = $r1['login_id'];
         $sql1 = "SELECT * FROM admin_akses WHERE login_id = '$login_id'";
         $q1 = mysqli_query($conn, $sql1);
-        while($r1 = mysqli_fetch_array($q1)){
-            $akses[] = $r1['akses_id']; 
+        $akses = array(); // Inisialisasi array akses di sini
+        while ($r1 = mysqli_fetch_array($q1)) {
+            $akses[] = $r1['akses_id'];
         }
-        // if(empty($akses)) {
-        //     $err .= "<div class='alert alert-danger mx-auto' role='alert' style='width: 373px; height: 55px;'>
-        //     You dont have permission
-        // </div>";
-        // }
+        if (empty($akses)) {
+            $err .= "<div class='alert alert-danger mx-auto' role='alert' style='width: 373px; height: 55px;'>
+                You dont have permission
+            </div>";
+        }
     }
-    if(empty($err)) {
+    if (empty($err)) {
         $_SESSION['login'] = true;
         $_SESSION['admin_akses'] = $akses;
         header("location: dashboard.php");
     }
 }
+
 
 ?>
 <!DOCTYPE html>

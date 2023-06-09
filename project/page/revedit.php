@@ -30,6 +30,19 @@ if(isset($_POST["edit"])) {
     }
 }
 
+if (!in_array("bendahara", $_SESSION['admin_akses'])) {
+  echo "<script>
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Anda Tidak Memiliki Akses Sebagai Bendahara',
+      }).then(() => {
+          window.location.href = 'revenue.php';
+      });
+  </script>";
+  exit();
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -102,14 +115,6 @@ if(isset($_POST["edit"])) {
                 <!-- /script sidebar -->
                 <!-- Page content-->
                 <div class="container-fluid">
-                <?php 
-                            
-                    if (in_array("manager", $_SESSION['admin_akses'])) {
-                      echo "<div class='alert alert-danger mt-5' role='alert'>You dont have the permission to acces this page</div>";
-                    exit();
-                  }
-                                     
-                ?>
                    <div class="bg-light shadow-lg rounded my-3 mx-auto p-3" style="width: 100%; height: max-content">
                     <div class="h5">Edit Riwayat Transaksi</div>
                     <hr>

@@ -2,6 +2,7 @@
 session_start();
 
 require '../functions/functions.php';
+require 'link.php';
 
 if (!isset($_SESSION["login"])) {
     header("Location: login.php");
@@ -12,6 +13,20 @@ if (!isset($_SESSION["login"])) {
 $id = $_GET["id"];
 // query data produk berdasarkan id
 $gp = query("SELECT * FROM produk WHERE id = $id")[0];
+
+if (!in_array("cashier", $_SESSION['admin_akses'])) {
+    echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Anda Tidak Memiliki Akses Sebagai Kasir',
+        }).then(() => {
+            window.location.href = 'product.php';
+        });
+    </script>";
+    exit();
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -92,12 +107,6 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
             <!-- /script sidebar -->
             <!-- Page content-->
             <div class="container-fluid">
-                <?php 
-                if (in_array("manager", $_SESSION['admin_akses'])) {
-                    echo "<div class='alert alert-danger mt-5' role='alert'>You dont have the permission to acces this page</div>";
-                exit();
-                }
-                ?>
                 <div class="bg-light rounded shadow-lg mx-auto my-5 p-3" style="width: 100%; height: max-content;">
                     <div class="h4">Pembayaran</div>
                     <hr>
@@ -131,6 +140,7 @@ $gp = query("SELECT * FROM produk WHERE id = $id")[0];
             </div>
         </div>
     </div>
+    <!-- <script src="../sweetalert/sweetalert2.all.min.js"></script> -->
     <!-- Bootstrap core JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
