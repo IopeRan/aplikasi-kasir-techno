@@ -125,9 +125,24 @@ if (isset($_POST['findcode'])) {
           exit();
         }
         ?>
-        <div class="table-responsive card container p-4 my-5 shadow-lg">
+        <div class="card container p-4 my-5 shadow-lg">
+          <?php 
+          $sql = "SELECT COUNT(*) AS total FROM produk";
+          $result = $conn->query($sql);
+          
+          if ($result->num_rows > 0) {
+              $row = $result->fetch_assoc();
+              $jumlah_produk = $row["total"];
+          } else {
+              $jumlah_produk = 0;
+          }
+          ?>
+          <div class="d-flex flex-row">
+            <div class="card border bg-danger text-white ">
+              <div class="d-flex align-items-center flex-row gap-2 p-2 fw-bold" style="width: max-content;"><i class="fa-solid fa-basket-shopping"></i><span class="">Jumlah Product : <?= $jumlah_produk; ?> Unit</span></div>
+            </div>
+          </div>
         <div class="d-flex flex-column">
-        <a href="add.php" class="btn btn-primary my-2 px-1 py-2 hidden-link" style="width: 150px;">Tambah Produk</a>
           <form class="d-flex flex-row" action="" method="post">
             <input class="shadow-lg border w-100 my-1 max-width" autocomplete="off" style="height: 35px; border: none; outline: none;" type="number" id="searchid" name="searchid" placeholder="cari ID barang">
             <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findid" id="findid"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -145,34 +160,37 @@ if (isset($_POST['findcode'])) {
             <button class="btn rounded-0 btn-primary" style="height: 35px; margin-top: 4px;" name="findcode" id="findcode"><i class="fa-solid fa-magnifying-glass"></i></button>
           </form>
         </div>
+        <a href="add.php" class="btn btn-primary my-2 px-1 py-2 hidden-link" style="width: 150px;">Tambah Produk</a>
         <div class="fw-bold">PRODUK TECHNO GALLERY</div>
-        <table class="table table-responsive my-2 shadow-lg">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col" class="bg-dark text-light text-center">ID</th>
-              <th scope="col" class="bg-dark text-light text-center">Kode Barang</th>
-              <th scope="col" class="bg-dark text-light text-center">Tanggal Masuk</th>
-              <th scope="col" class="bg-dark text-light text-center">Gambar Produk</th>
-              <th scope="col" class="bg-dark text-light text-center">Product</th>
-              <th scope="col" class="bg-dark text-light text-center">Price</th>
-              <th scope="col" class="bg-dark text-light text-center">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $i = 1; ?>
-            <?php foreach ($getproduk as $gp) : ?>
+        <div class="card p-3 bg-white table-responsive">
+          <table class="table table-responsive my-2 shadow-lg">
+            <thead class="thead-dark">
               <tr>
-                <td class="bg-light text-center"><?= $gp["id"]; ?></td>
-                <td class="bg-light text-center"><?= $gp["kode"]; ?></td>
-                <td class="bg-light text-center"><?= $gp["tanggal_masuk"]; ?></td>
-                <td class="bg-light text-center"><img src="../assets/img/<?= $gp["gambar"]; ?>" alt="product" width="80px"></td>
-                <td class="bg-light text-center"><?= $gp["produk"]; ?></td>
-                <td class="bg-light text-center"><?= $gp["harga"]; ?></td>
-                <td class="bg-light text-center"><a style="margin-right: 15px;" href="transaksi.php?id=<?= $gp["id"]; ?>"><i class="h2 text-success fa-solid fa-cart-shopping"></i></a><a style="margin-right: 15px;" href="edit.php?id=<?= $gp["id"]; ?>"><i class="h2 fa-solid fa-pen-to-square"></i></a></a><a href="delete.php?id=<?= $gp['id']; ?>" class="delete-link"><i class="h2 text-danger fa-sharp fa-solid fa-trash"></i></a></td>
+                <th scope="col" class="bg-dark text-light text-center">ID</th>
+                <th scope="col" class="bg-dark text-light text-center">Kode Barang</th>
+                <th scope="col" class="bg-dark text-light text-center">Tanggal Masuk</th>
+                <th scope="col" class="bg-dark text-light text-center">Gambar Produk</th>
+                <th scope="col" class="bg-dark text-light text-center">Product</th>
+                <th scope="col" class="bg-dark text-light text-center">Price</th>
+                <th scope="col" class="bg-dark text-light text-center">Aksi</th>
               </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <?php $i = 1; ?>
+              <?php foreach ($getproduk as $gp) : ?>
+                <tr>
+                  <td class="bg-light text-center"><?= $gp["id"]; ?></td>
+                  <td class="bg-light text-center"><?= $gp["kode"]; ?></td>
+                  <td class="bg-light text-center"><?= $gp["tanggal_masuk"]; ?></td>
+                  <td class="bg-light text-center"><img src="../assets/img/<?= $gp["gambar"]; ?>" alt="product" width="80px"></td>
+                  <td class="bg-light text-center"><?= $gp["produk"]; ?></td>
+                  <td class="bg-light text-center"><?= $gp["harga"]; ?></td>
+                  <td class="bg-light text-center"><a style="margin-right: 15px;" href="transaksi.php?id=<?= $gp["id"]; ?>"><i class="h2 text-success fa-solid fa-cart-shopping"></i></a><a style="margin-right: 15px;" href="edit.php?id=<?= $gp["id"]; ?>"><i class="h2 fa-solid fa-pen-to-square"></i></a></a><a href="delete.php?id=<?= $gp['id']; ?>" class="delete-link"><i class="h2 text-danger fa-sharp fa-solid fa-trash"></i></a></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
         </div>
         <!-- Navigasi Pagination -->
         <nav aria-label="Page navigation example d-flex" style="display: flex; justify-content: center;">

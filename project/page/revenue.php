@@ -129,13 +129,17 @@ if (isset($_POST["cari"])) {
                         Filter Tanggal Riwayat Pembelian Techno Gallery
                     </div>
                     <form action="" method="post" class="text-center">
-                        <table class="table">
-                            <tr class="bg-dark text-white">
+                        <div class="table-responsive">
+                            <table class="table">
+                            <thead class="bg-dark text-white">
+                                <tr>
                                 <th>Dari Tanggal</th>
                                 <th>Sampai Tanggal</th>
                                 <th>Aksi</th>
-                            </tr>
-                            <tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
                                 <td class="col-md-4 col-sm-12 mb-2">
                                     <input type="date" id="dari_tanggal" name="dari_tanggal" required class="form-control py-1 shadow-lg">
                                 </td>
@@ -145,8 +149,10 @@ if (isset($_POST["cari"])) {
                                 <td class="col-md-4 col-sm-12">
                                     <input type="submit" id="filter" name="filter" class="btn btn-primary w-100 shadow-lg" value="Filter">
                                 </td>
-                            </tr>
-                        </table>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
                     </form>
                     <div class="fw-bold">DATA RIWAYAT TRANSAKSI TECHNO GALLERY</div>
                     <div class="table-responsive">
@@ -198,16 +204,10 @@ if (isset($_POST["cari"])) {
                                     <td class="column-items"><a href="deleterev.php?id=<?= $gt["id"]; ?>" class="delete-link" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash"></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a><a href="struk.php?id=<?= $gt["id"]; ?>" style="margin-left: 10px;"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
                                 </tr>
                             <?php endwhile; ?>
-                            <tr class="text-center">
-                                <td width="210">Produk Yang Terjual :</td>
-                                <td><?= $sold; ?>&nbsp;&nbsp;unit</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td width="200">| Total Pendapatan :</td>
-                                <td>Rp.<?= $total; ?></td>
-                            </tr>
+                            <div class="d-flex flex-row gap-3 flex-wrap">
+                                <div class="card border bg-success text-white p-3 d-flex flex-row align-items-center gap-2" style="width: max-content;"><i class="h1 fa-brands fa-sellsy"></i>Produk Yang Terjual : <?= $sold; ?>&nbsp;&nbsp;unit</div>
+                                <div class="card border bg-warning text-black p-3 d-flex flex-row align-items-center gap-2" style="width: max-content;"><i class="h1 fa-solid fa-coins"></i>Total Pendapatan : Rp.<?= $total; ?></div>
+                            </div>
                         </tbody>
                     </table>
                 </div>
