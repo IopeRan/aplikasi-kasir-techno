@@ -182,7 +182,7 @@ if (isset($_POST['findcode'])) {
                   <td class="bg-light text-center"><?= $gp["id"]; ?></td>
                   <td class="bg-light text-center"><?= $gp["kode"]; ?></td>
                   <td class="bg-light text-center"><?= $gp["tanggal_masuk"]; ?></td>
-                  <td class="bg-light text-center"><img src="../assets/img/<?= $gp["gambar"]; ?>" alt="product" width="80px"></td>
+                  <td class="bg-light text-center"><img src="../assets/img/<?= $gp["gambar"]; ?>" alt="product" width="120px" height="85px"></td>
                   <td class="bg-light text-center"><?= $gp["produk"]; ?></td>
                   <td class="bg-light text-center"><?= $gp["harga"]; ?></td>
                   <td class="bg-light text-center"><a style="margin-right: 15px;" href="transaksi.php?id=<?= $gp["id"]; ?>"><i class="h2 text-success fa-solid fa-cart-shopping"></i></a><a style="margin-right: 15px;" href="edit.php?id=<?= $gp["id"]; ?>"><i class="h2 fa-solid fa-pen-to-square"></i></a></a><a href="delete.php?id=<?= $gp['id']; ?>" class="delete-link"><i class="h2 text-danger fa-sharp fa-solid fa-trash"></i></a></td>

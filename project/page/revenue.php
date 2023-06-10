@@ -155,7 +155,7 @@ if (isset($_POST["cari"])) {
                         </div>
                     </form>
                     <div class="fw-bold">DATA RIWAYAT TRANSAKSI TECHNO GALLERY</div>
-                    <div class="table-responsive">
+                    <div class="card p-3 table-responsive">
                     <table id="table" class="table table-dark table-striped mt-2 mx-auto fw-normal shadow-sm" style="width: 100%;">
                         <thead>
                             <tr class="text-center">
@@ -204,14 +204,14 @@ if (isset($_POST["cari"])) {
                                     <td class="column-items"><a href="deleterev.php?id=<?= $gt["id"]; ?>" class="delete-link" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash"></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a><a href="struk.php?id=<?= $gt["id"]; ?>" style="margin-left: 10px;"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
                                 </tr>
                             <?php endwhile; ?>
-                            <div class="d-flex flex-row gap-3 flex-wrap">
-                                <div class="card border bg-success text-white p-3 d-flex flex-row align-items-center gap-2" style="width: max-content;"><i class="h1 fa-brands fa-sellsy"></i>Produk Yang Terjual : <?= $sold; ?>&nbsp;&nbsp;unit</div>
-                                <div class="card border bg-warning text-black p-3 d-flex flex-row align-items-center gap-2" style="width: max-content;"><i class="h1 fa-solid fa-coins"></i>Total Pendapatan : Rp.<?= $total; ?></div>
-                            </div>
                         </tbody>
                     </table>
                 </div>
-
+                <br>
+                <div class="d-flex flex-row gap-3 flex-wrap">
+                    <div class="card border bg-success text-white p-3 d-flex flex-row align-items-center gap-2" style="width: max-content;"><i class="h1 fa-brands fa-sellsy"></i>Produk Yang Terjual : <?= $sold; ?>&nbsp;&nbsp;unit</div>
+                    <div class="card border bg-warning text-black p-3 d-flex flex-row align-items-center gap-2" style="width: max-content;"><i class="h1 fa-solid fa-coins"></i>Total Pendapatan : Rp.<?= $total; ?></div>
+                </div>
                 <!-- Navigasi Pagination -->
                 <nav aria-label="Page navigation example d-flex" style="display: flex; justify-content: center;">
                     <ul class="pagination">
