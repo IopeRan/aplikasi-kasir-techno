@@ -91,7 +91,7 @@ function upload() {
     }
 
         // check
-    $extensionValidImage = ['jpg', 'jpeg', 'png'];
+    $extensionValidImage = ['jpg', 'jpeg', 'png', 'webp'];
     $extensionImage = explode('.', $fileName);
     $extensionImage = strtolower(end($extensionImage));
 
