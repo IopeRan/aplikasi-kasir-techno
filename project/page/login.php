@@ -92,7 +92,6 @@ if (isset($_POST['login'])) {
             <input class="rounded mx-auto shadow-lg text-center" style="width: 373px; height: 36px; outline: none; border: none;" type="password" autocomplete="off" htmlspecialchars id="password" name="password" placeholder="Password">
             <button class="btn btn-primary mx-auto shadow-lg" style="width: 373px; height: 36px;" id="login" name="login">LOGIN</button>
             <hr class="mx-auto mt-1" style="width: 90%;">
-            <div class="mx-auto" style="font-size: 14px; margin-top: -35px; margin-bottom: 50px;"><span>don't have an account?</span><a class="text-decoration-none" href="register.php">create account</a></div>
         </form>
     </div>
 </body>
