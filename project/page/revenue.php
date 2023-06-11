@@ -14,7 +14,8 @@ $countPage = ceil($countData / $dataPerPage);
 $page = (isset($_GET["page"])) ? $_GET["page"] : 1;
 $earlyData = ($dataPerPage * $page) - $dataPerPage;
 
-$getTransaksi = query("SELECT * FROM transaksi LIMIT $earlyData, $dataPerPage");
+// $data_barang = query("SELECT * FROM transaksi LIMIT $earlyData, $dataPerPage");
+
 
 // tombol cari di klik
 if (isset($_POST["cari"])) {
@@ -174,25 +175,31 @@ if (isset($_POST["cari"])) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            // $data=$conn->query("SELECT * FROM transaksi");
-                            $no = 1;
+                        <?php
+                            $dataPerPage = 10;
+                            $countData = count(query("SELECT * FROM transaksi"));
+                            $countPage = ceil($countData / $dataPerPage);
+                            $page = (isset($_GET["page"])) ? $_GET["page"] : 1;
+                            $earlyData = ($dataPerPage * $page) - $dataPerPage;
+
+                            $no = ($page - 1) * $dataPerPage + 1;
                             $total = 0;
                             $sold = 0;
-                            // filter
-                            if(isset($_POST["filter"])) {
+
+                            if (isset($_POST["filter"])) {
                                 $dari_tanggal = mysqli_real_escape_string($conn, $_POST["dari_tanggal"]);
                                 $sampai_tanggal = mysqli_real_escape_string($conn, $_POST["sampai_tanggal"]);
-                                $data_barang = mysqli_query($conn, "SELECT * FROM transaksi WHERE tanggal BETWEEN '$dari_tanggal' AND '$sampai_tanggal'");
+                                $data_barang = mysqli_query($conn, "SELECT * FROM transaksi WHERE tanggal BETWEEN '$dari_tanggal' AND '$sampai_tanggal' LIMIT $earlyData, $dataPerPage");
                             } else {
-                                $data_barang = mysqli_query($conn, "SELECT * FROM transaksi WHERE tanggal");
+                                $data_barang = mysqli_query($conn, "SELECT * FROM transaksi LIMIT $earlyData, $dataPerPage");
                             }
-                            // while($getTransaksi = $data->fetch_array()) {
-                            while ($gt = mysqli_fetch_array($data_barang)) :
 
-                                $total += $gt["harga"];
+                            while ($gt = mysqli_fetch_array($data_barang)) :
+                                $total += $gt["hasil"];
                                 $sold += $gt["total"];
-                            ?>
+
+                        ?>
+
                                 <tr class="text-center">
                                     <td scope="row"><?= $gt["id"]; ?></td>
                                     <td><?= $gt["pembeli"]; ?></td>
@@ -204,14 +211,23 @@ if (isset($_POST["cari"])) {
                                     <td class="column-items"><a href="deleterev.php?id=<?= $gt["id"]; ?>" class="delete-link" style="margin-right: 10px;"><i class="h3 text-danger fa-solid fa-trash"></i></a><a href="revedit.php?id=<?= $gt["id"]; ?>"><i class="h3 text-primary fa-solid fa-pen-to-square"></i></a><a href="struk.php?id=<?= $gt["id"]; ?>" style="margin-left: 10px;"><i class="h3 text-success fa-solid fa-file-invoice-dollar"></i></a></td>
                                 </tr>
                             <?php endwhile; ?>
+                            <?php 
+                            // Mendapatkan total keseluruhan data
+                            if (!isset($_POST["filter"])) {
+                                $totalData = count(query("SELECT * FROM transaksi"));
+                                $sold = 0;
+                                $total = 0;
+                                $data_barang_all = mysqli_query($conn, "SELECT * FROM transaksi");
+                                while ($gt_all = mysqli_fetch_array($data_barang_all)) {
+                                    $sold += $gt_all["total"];
+                                    $total += $gt_all["hasil"];
+                                }
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
                 <br>
-                <div class="d-flex flex-row gap-3 flex-wrap">
-                    <div class="card border bg-success text-white p-3 d-flex flex-row align-items-center gap-2" style="width: max-content;"><i class="h1 fa-brands fa-sellsy"></i>Produk Yang Terjual : <?= $sold; ?>&nbsp;&nbsp;unit</div>
-                    <div class="card border bg-warning text-black p-3 d-flex flex-row align-items-center gap-2" style="width: max-content;"><i class="h1 fa-solid fa-coins"></i>Total Pendapatan : Rp.<?= $total; ?></div>
-                </div>
                 <!-- Navigasi Pagination -->
                 <nav aria-label="Page navigation example d-flex" style="display: flex; justify-content: center;">
                     <ul class="pagination">
@@ -235,6 +251,11 @@ if (isset($_POST["cari"])) {
                     </ul>
                 </nav>
                 <!-- /Navigasi Pagination -->
+                <div class="d-flex flex-row gap-3 flex-wrap">
+                    <div class="card border bg-success text-white p-3 d-flex flex-row align-items-center gap-2" style="width: max-content;"><i class="h1 fa-brands fa-sellsy"></i>Produk Yang Terjual : <?= $sold; ?>&nbsp;&nbsp;unit</div>
+                    <div class="card border bg-warning text-black p-3 d-flex flex-row align-items-center gap-2" style="width: max-content;"><i class="h1 fa-solid fa-coins"></i>Total Pendapatan : Rp. <?= $total; ?></div>
+                </div>
+                <br>
                 <a href="printpdf.php?dari=<?= $dari_tanggal; ?>&&sampai=<?= $sampai_tanggal; ?>" target="_blank" style="width: 150px;" class="btn btn-danger shadow-lg">Cetak Tabel(PDF)</a>
                 </div>
             </div>
