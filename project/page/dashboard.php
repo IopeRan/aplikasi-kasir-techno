@@ -85,11 +85,39 @@ if (!isset($_SESSION["login"])) {
                       <hr>
                       <div class="container h5">Kami sudah menyiapkan beberapa menu yang bisa anda akses</div>
                       <hr>
-                      <div class="container-sm list-group d-flex flex-column p-3 my-3 mx-auto gap-1">
-                        <a href="product.php" class="btn btn-success">Produk</a>
-                        <a href="revenue.php" class="btn btn-warning">Penghasilan</a>
-                        <a href="https://www.google.com/maps/place/Techno+Park/@-3.2959495,114.5899544,21z/data=!4m14!1m7!3m6!1s0x2de4211bbc1be42d:0xd93490f4e3d79a8e!2sSMK+Negeri+2+Banjarmasin!8m2!3d-3.2956862!4d114.5900279!16s%2Fg%2F11g__vfj2!3m5!1s0x2de423a0d2934103:0x4e32c230b154c815!8m2!3d-3.2959072!4d114.5898031!16s%2Fg%2F11h_sm3wgw" target="_blank" class="btn btn-primary">Tempat</a>
-                        <a href="jadwal.php" class="btn btn-secondary">Jadwal Buka</a>
+                      <div class="container-sm list-group d-flex flex-row flex-wrap justify-content-center p-3 my-3 mx-auto gap-1">
+                        <a class="card bg-success text-decoration-none p-3" href="product.php" style="width: 300px;">
+                          <div class="border-bottom">
+                            <h5 class="font-weight-bold text-white d-flex  align-items-center gap-2"><i class="fa-solid fa-cart-shopping"></i>Produk<span>(13)</span></h5>
+                          </div>
+                          <div>
+                            <p class="text-white">Klik disini untuk melihat produk yang terdaftar di Techno Gallery.</p>
+                          </div>
+                        </a>
+                        <a class="card bg-primary text-decoration-none p-3" href="revenue.php" style="width: 300px;">
+                          <div class="border-bottom">
+                            <h5 class="font-weight-bold text-white d-flex  align-items-center gap-2"><i class="fa-solid fa-chart-simple"></i>Revenue<span>(13)</span></h5>
+                          </div>
+                          <div>
+                            <p class="text-white">Klik disini untuk melihat riwayat penjualan produk Techno Gallery.</p>
+                          </div>
+                        </a>
+                        <a class="card bg-warning text-decoration-none p-3" href="https://goo.gl/maps/kzuMTJRik6RWrNoCA" target="_blank" style="width: 300px;">
+                          <div class="border-bottom border-dark">
+                            <h5 class="font-weight-bold text-dark d-flex align-items-center gap-2 "><i class="fa-solid fa-map"></i>Location<span>(Techno)</span></h5>
+                          </div>
+                          <div>
+                            <p class="text-dark">Klik disini untuk melihat titik lokasi Techno Gallery di Google Maps.</p>
+                          </div>
+                        </a>
+                        <a class="card bg-secondary text-decoration-none p-3" href=".php" style="width: 300px;">
+                          <div class="border-bottom">
+                            <h5 class="font-weight-bold text-white d-flex align-items-center gap-2 "><i class="fa-solid fa-calendar-days"></i></i>Schedulle<span>(Techno)</span></h5>
+                          </div>
+                          <div>
+                            <p class="text-white">Klik disini untuk melihat jadwal buka Techno Gallery.</p>
+                          </div>
+                        </a>
                       </div>
                     </div>
                   </div>

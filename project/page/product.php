@@ -118,7 +118,7 @@ if (isset($_POST['findcode'])) {
       <!-- Page content-->
       <div class="container-fluid">
         <?php
-        if (!in_array("cashier", $_SESSION['admin_akses']) && !in_array("manager", $_SESSION['admin_akses'])) {
+        if (!in_array("kasir", $_SESSION['admin_akses']) && !in_array("manager", $_SESSION['admin_akses'])) {
           echo "<div class='alert alert-danger mt-5' role='alert'>
           You dont have the permission to acces this page
         </div>";
@@ -172,7 +172,7 @@ if (isset($_POST['findcode'])) {
                 <th scope="col" class="bg-dark text-light text-center">Gambar Produk</th>
                 <th scope="col" class="bg-dark text-light text-center">Product</th>
                 <th scope="col" class="bg-dark text-light text-center">Price</th>
-                <th scope="col" class="bg-dark text-light text-center">Aksi</th>
+                <th width="300" scope="col" class="bg-dark text-light text-center">Aksi</th>
               </tr>
             </thead>
             <tbody>

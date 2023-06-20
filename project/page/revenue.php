@@ -113,7 +113,7 @@ if (isset($_POST["cari"])) {
             <!-- Page content-->
             <div class="container-fluid">
                 <?php
-                if (!in_array("bendahara", $_SESSION['admin_akses']) && !in_array("manager", $_SESSION['admin_akses'])) {
+                if (!in_array("bendara", $_SESSION['admin_akses']) && !in_array("manager", $_SESSION['admin_akses'])) {
                     echo "<div class='alert alert-danger mt-5' role='alert'>
                         You dont have the permission to acces this page
                       </div>";
@@ -171,7 +171,7 @@ if (isset($_POST["cari"])) {
                                 <th scope="col" width="200">Total Produk</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col" width="350">Pembayaran</th>
-                                <th scope="col" width="300">Aksi</th>
+                                <th scope="col" width="350">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

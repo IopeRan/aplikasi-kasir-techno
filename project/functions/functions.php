@@ -59,6 +59,7 @@ function tambah($data) {
     global $conn;
 
     // mengambil data dari tiap elemen dalam form
+    $id = $data['id'];
     $kode = $data["kode"];
     $produk = $data["produk"];
     $harga = $data["harga"];
@@ -70,7 +71,7 @@ function tambah($data) {
         return false;
     }
 
-    $query = "INSERT INTO produk VALUES ('', '$kode', '$tanggal', '$gambar', '$produk', '$harga')";
+    $query = "INSERT INTO produk (kode, tanggal_masuk, gambar, produk, harga) VALUES ('$kode', '$tanggal', '$gambar', '$produk', '$harga')";
     mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
@@ -136,10 +137,11 @@ function transaksi($data) {
     $bayar = htmlspecialchars($data["bayar"]);
     $payback = htmlspecialchars($data["payback"]);
 
-    $query = "INSERT INTO transaksi 
+    $query = "INSERT INTO transaksi
+                    (pembeli, tanggal, produk, harga, total, hasil, bayar, payback) 
                        VALUES 
                        (
-                        '', '$pembeli', '$tanggal', '$produk', '$harga', '$total', '$hasil', '$bayar', '$payback'
+                        '$pembeli', '$tanggal', '$produk', '$harga', '$total', '$hasil', '$bayar', '$payback'
     )
     ";
     mysqli_query($conn, $query);

@@ -30,12 +30,12 @@ if(isset($_POST["edit"])) {
     }
 }
 
-if (!in_array("bendahara", $_SESSION['admin_akses'])) {
+if (!in_array("admin", $_SESSION['admin_akses'])) {
   echo "<script>
       Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Anda Tidak Memiliki Akses Sebagai Bendahara',
+          text: 'Anda Tidak Memiliki Akses Sebagai Admin',
       }).then(() => {
           window.location.href = 'revenue.php';
       });

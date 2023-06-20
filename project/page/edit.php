@@ -9,7 +9,7 @@ $id = $_GET["id"];
 $gpe = query("SELECT * FROM produk WHERE id = $id")[0];
 //  
 
-if (!in_array("cashier", $_SESSION['admin_akses'])) {
+if (!in_array("admin", $_SESSION['admin_akses'])) {
     echo "<script>
         Swal.fire({
             icon: 'error',

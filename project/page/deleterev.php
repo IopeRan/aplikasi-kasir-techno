@@ -6,7 +6,7 @@ require '../page/link.php';
 
 $id = $_GET["id"];
 
-if (!in_array("bendahara", $_SESSION['admin_akses'])) {
+if (!in_array("bendara", $_SESSION['admin_akses']) && in_array("manager", $_SESSION['admin_akses'])) {
   echo "<script>
       Swal.fire({
           icon: 'error',

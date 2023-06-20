@@ -39,12 +39,12 @@ if(isset($_POST["submit"])) {
     }
 }
                   
-if (!in_array("cashier", $_SESSION['admin_akses'])) {
+if (!in_array("admin", $_SESSION['admin_akses'])) {
     echo "<script>
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Anda Tidak Memiliki Akses Sebagai Kasir',
+            text: 'Anda Tidak Memiliki Akses Sebagai Admin',
         }).then(() => {
             window.location.href = 'product.php';
         });
@@ -130,6 +130,7 @@ if (!in_array("cashier", $_SESSION['admin_akses'])) {
                     <div class="h3">Tambah Produk</div>
                     <hr>
                     <form class="d-flex flex-column" action="" method="post" enctype="multipart/form-data">
+                        <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="hidden" htmlspecialchars required placeholder="Kode Produk" id="id" name="id">
                         <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="text" htmlspecialchars required placeholder="Kode Produk" id="kode" name="kode">
                         <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="text" htmlspecialchars required placeholder="Nama Produk" id="produk" name="produk">
                         <input class="my-3 rounded shadow-lg" style="border: none; height: 30px; outline: none;" type="number" htmlspecialchars required placeholder="Harga Produk" id="harga" name="harga">
