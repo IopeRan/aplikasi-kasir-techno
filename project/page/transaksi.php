@@ -14,7 +14,7 @@ $id = $_GET["id"];
 // query data produk berdasarkan id
 $gp = query("SELECT * FROM produk WHERE id = $id")[0];
 
-if (!in_array("kasir", $_SESSION['admin_akses'])) {
+if (!in_array("kasir", $_SESSION['admin_akses']) && !in_array("admin", $_SESSION['admin_akses'])) {
     echo "<script>
         Swal.fire({
             icon: 'error',

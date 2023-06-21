@@ -14,7 +14,7 @@ $sampai = $_GET["sampai"];
 
 $getTransaksi = query("SELECT * FROM transaksi WHERE tanggal BETWEEN '$dari' AND '$sampai'");
 
-if (!in_array("bendara", $_SESSION['admin_akses'])) {
+if (!in_array("bendahara", $_SESSION['admin_akses']) && !in_array("admin", $_SESSION['admin_akses'])) {
     echo "<script>
         Swal.fire({
             icon: 'error',

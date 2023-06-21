@@ -118,7 +118,7 @@ if (isset($_POST['findcode'])) {
       <!-- Page content-->
       <div class="container-fluid">
         <?php
-        if (!in_array("kasir", $_SESSION['admin_akses']) && !in_array("manager", $_SESSION['admin_akses'])) {
+        if (!in_array("cashier", $_SESSION['admin_akses']) && !in_array("manager", $_SESSION['admin_akses']) && !in_array("admin", $_SESSION['admin_akses'])) {
           echo "<div class='alert alert-danger mt-5' role='alert'>
           You dont have the permission to acces this page
         </div>";

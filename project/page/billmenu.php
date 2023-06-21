@@ -13,7 +13,7 @@ $earlyData = ($dataPerPage * $page) - $dataPerPage;
 
 $getTransaksi = query("SELECT * FROM transaksi ORDER BY id DESC LIMIT $earlyData, $dataPerPage");
 
-if (!in_array("kasir", $_SESSION['admin_akses'])) {
+if (!in_array("kasir", $_SESSION['admin_akses']) && !in_array("admin", $_SESSION['admin_akses'])) {
     echo "<script>
         Swal.fire({
             icon: 'error',

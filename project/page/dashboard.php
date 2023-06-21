@@ -85,10 +85,31 @@ if (!isset($_SESSION["login"])) {
                       <hr>
                       <div class="container h5">Kami sudah menyiapkan beberapa menu yang bisa anda akses</div>
                       <hr>
+                      <?php 
+                        $sql1 = "SELECT COUNT(*) AS total FROM produk";
+                        $result = $conn->query($sql1);
+                        
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            $jumlah_produk = $row["total"];
+                        } else {
+                            $jumlah_produk = 0;
+                        }
+
+                        $sql2 = "SELECT COUNT(*) AS total FROM transaksi";
+                        $result = $conn->query($sql2);
+                        
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            $jumlah_transaksi = $row["total"];
+                        } else {
+                            $jumlah_transaksi = 0;
+                        }
+                      ?>
                       <div class="container-sm list-group d-flex flex-row flex-wrap justify-content-center p-3 my-3 mx-auto gap-1">
                         <a class="card bg-success text-decoration-none p-3" href="product.php" style="width: 300px;">
                           <div class="border-bottom">
-                            <h5 class="font-weight-bold text-white d-flex  align-items-center gap-2"><i class="fa-solid fa-cart-shopping"></i>Produk<span>(13)</span></h5>
+                            <h5 class="font-weight-bold text-white d-flex  align-items-center gap-2"><i class="fa-solid fa-cart-shopping"></i>Produk<span>(<?= $jumlah_produk; ?>)</span></h5>
                           </div>
                           <div>
                             <p class="text-white">Klik disini untuk melihat produk yang terdaftar di Techno Gallery.</p>
@@ -96,7 +117,7 @@ if (!isset($_SESSION["login"])) {
                         </a>
                         <a class="card bg-primary text-decoration-none p-3" href="revenue.php" style="width: 300px;">
                           <div class="border-bottom">
-                            <h5 class="font-weight-bold text-white d-flex  align-items-center gap-2"><i class="fa-solid fa-chart-simple"></i>Revenue<span>(13)</span></h5>
+                            <h5 class="font-weight-bold text-white d-flex  align-items-center gap-2"><i class="fa-solid fa-chart-simple"></i>Revenue<span>(<?= $jumlah_transaksi; ?>)</span></h5>
                           </div>
                           <div>
                             <p class="text-white">Klik disini untuk melihat riwayat penjualan produk Techno Gallery.</p>
@@ -110,7 +131,7 @@ if (!isset($_SESSION["login"])) {
                             <p class="text-dark">Klik disini untuk melihat titik lokasi Techno Gallery di Google Maps.</p>
                           </div>
                         </a>
-                        <a class="card bg-secondary text-decoration-none p-3" href=".php" style="width: 300px;">
+                        <a class="card bg-secondary text-decoration-none p-3" href="jadwal.php" style="width: 300px;">
                           <div class="border-bottom">
                             <h5 class="font-weight-bold text-white d-flex align-items-center gap-2 "><i class="fa-solid fa-calendar-days"></i></i>Schedulle<span>(Techno)</span></h5>
                           </div>
