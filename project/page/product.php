@@ -191,9 +191,8 @@ if (isset($_POST['findcode'])) {
             </tbody>
           </table>
         </div>
-        </div>
         <!-- Navigasi Pagination -->
-        <nav aria-label="Page navigation example d-flex" style="display: flex; justify-content: center;">
+        <nav aria-label="Page navigation example d-flex" style="display: flex; justify-content: center; margin-top: 15px;">
           <ul class="pagination">
             <li class="page-item">
               <?php if ($page > 1) : ?>
@@ -215,6 +214,7 @@ if (isset($_POST['findcode'])) {
           </ul>
         </nav>
         <!-- /Navigasi Pagination -->
+        </div>
       </div>
     </div>
   </div>

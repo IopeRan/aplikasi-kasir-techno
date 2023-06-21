@@ -14,7 +14,7 @@ $id = $_GET["id"];
 // query data produk berdasarkan id
 $gp = query("SELECT * FROM produk WHERE id = $id")[0];
 
-if (!in_array("kasir", $_SESSION['admin_akses']) && !in_array("admin", $_SESSION['admin_akses'])) {
+if (!in_array("cashier", $_SESSION['admin_akses']) && !in_array("admin", $_SESSION['admin_akses'])) {
     echo "<script>
         Swal.fire({
             icon: 'error',
@@ -127,7 +127,7 @@ if (!in_array("kasir", $_SESSION['admin_akses']) && !in_array("admin", $_SESSION
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="date" id="tanggal" name="tanggal" autocomplete="off" htmlspecialchars required placeholder="Tanggal Transaksi">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="produk" name="produk" autocomplete="off" readonly htmlspecialchars required placeholder="Nama Produk" value="<?= $gp["produk"]; ?>">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="harga" name="harga" autocomplete="off" readonly htmlspecialchars required placeholder="Harga Produk" value="<?= $gp["harga"]; ?>">
-                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="total" name="total" autocomplete="off" htmlspecialchars required placeholder="Total Produk" min="1" max="1000" value="1">
+                            <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="total" name="total" autocomplete="off" htmlspecialchars required placeholder="Jumlah Produk" min="1" max="1000" value="1">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="text" id="hasil" name="hasil" autocomplete="off" readonly required htmlspecialchars placeholder="Total Harga">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="bayar" name="bayar" autocomplete="off" htmlspecialchars required placeholder="masukkan nominal">
                             <input class="rounded border shadow-lg w-100 my-1" style="border: 0;" type="number" id="payback" name="payback" autocomplete="off" htmlspecialchars readonly required placeholder="kembalian">

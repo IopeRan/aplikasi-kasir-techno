@@ -6,12 +6,12 @@ require '../page/link.php';
 
 $id = $_GET["id"];
 
-if (!in_array("bendara", $_SESSION['admin_akses']) && in_array("manager", $_SESSION['admin_akses'])) {
+if (!in_array("admin", $_SESSION['admin_akses'])) {
   echo "<script>
       Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Anda Tidak Memiliki Akses Sebagai Bendahara',
+          text: 'Anda Tidak Memiliki Akses Sebagai Admin',
       }).then(() => {
           window.location.href = 'revenue.php';
       });

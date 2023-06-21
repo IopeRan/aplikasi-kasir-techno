@@ -139,36 +139,42 @@ if (!isset($_SESSION["login"])) {
                     <div class="mt-5 text-center">
                         <div class="display-5">Created by</div>
                         <div class="row">
-                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-center justify-content-center">
                                 <img id="badge" src="../assets/badge/html.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-center justify-content-center">
                                 <img id="badge" src="../assets/badge/css.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-center justify-content-center">
                                 <img id="badge" src="../assets/badge/javascript.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-center justify-content-center">
                                 <img id="badge" src="../assets/badge/php.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-center justify-content-center">
                                 <img id="badge" src="../assets/badge/bootstrap.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-center justify-content-center">
                                 <img id="badge" src="../assets/badge/mysql.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-center justify-content-center">
                                 <img id="badge" src="../assets/badge/apache.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-center justify-content-center">
                                 <img id="badge" src="../assets/badge/vsc.svg" alt="badges" class="img-fluid">
                             </div>
-                            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-center justify-content-center">
+                                <img id="badge" src="../assets/badge/font-awesome.png" alt="badges" class="img-fluid">
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex align-items-center justify-content-center">
+                                <img id="badge" src="../assets/badge/SweetAlert.png" alt="badges" class="img-fluid">
+                            </div>
+                            <!-- <div class="col-12 col-md-6 col-lg-4 mb-4">
                                 <div class="bg-primary text-light d-flex align-items-center justify-content-center rounded-lg" style="width: 250px; height: 80px; border-radius: 7px; font-size: 25px; font-weight: bold;"><i class="fa-solid fa-font-awesome me-3"></i>Font Awesome</div>
                             </div>
                             <div class="col-12 col-md-6 col-lg-4 mb-4">
                                 <div class="bg-warning text-light d-flex align-items-center justify-content-center rounded-lg" style="width: 250px; height: 80px; border-radius: 7px; font-size: 25px; font-weight: bold;"><img src="../assets/badge/sweetalert.png" width="60px" class="me-3">Sweetalert</div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

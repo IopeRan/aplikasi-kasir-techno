@@ -11,7 +11,7 @@ if (!in_array("admin", $_SESSION['admin_akses'])) {
       Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Anda Tidak Memiliki Akses Sebagai Kasir',
+          text: 'Anda Tidak Memiliki Akses Sebagai Admin',
       }).then(() => {
           window.location.href = 'product.php';
       });
