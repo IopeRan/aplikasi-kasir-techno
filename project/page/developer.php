@@ -110,7 +110,7 @@ if (!isset($_SESSION["login"])) {
                     <div class="d-flex flex-column text-center">
                         <div class="h3">Erlang Andriyanputra</div>
                         <div class="h4">SMKN 2 Banjarmasin</div>
-                        <div class="h5">X PPLG B</div>
+                        <div class="h5">XI PPLG B</div>
                     </div>
                     <ul class="d-flex flex-wrap list-unstyled gap-3 mt-3">
                         <li class="social-item">
@@ -135,6 +135,7 @@ if (!isset($_SESSION["login"])) {
                         </li>
                     </ul>
                     <div class="text-muted">Techno Cashier est.2023</div>
+                    <div class="text-muted">Version 0.1 Beta Presentation</div>
                     <hr style="border: 0.5px solid #222; width: 100%;">
                     <div class="mt-5 text-center">
                         <div class="display-5">Created by</div>

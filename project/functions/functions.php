@@ -268,8 +268,6 @@ function deleterev($id) {
     return mysqli_affected_rows($conn);
   }
 
-  
-
 function cari($keyword) {
     $query = "SELECT * FROM transaksi 
                     WHERE
